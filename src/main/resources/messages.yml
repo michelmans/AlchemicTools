@@ -1,0 +1,35 @@
+AlchemicTools:
+   Tag: 'Tools >>'
+   Commands:
+      NoPermission: '&c&oYou don''t have permission to use &9%command%&c.&r&c If you believe this is an error, &nplease contact an administrator.'
+      Reload: '&3Reloaded files.'
+      WrongFormat: '&cPlease use: &9'
+      Unknown: '&cUnknown command. Use &9/at help &cfor more information.'
+   Vanish:
+      Start: '&3You are no longer visible to other players.'
+      Stop: '&3You are now visible to other players.'
+      NotifyStart: '&3%player% is now vanished.'
+      NotifyStop: '&3%player% is no longer vanished.'
+      PersistentNotification: '&3You''re vanished.'
+      CancelCommandMessage: '%player% is offline.'
+   Invsee:
+      PlayerOffline: '%player% &cis offline.'
+      NoPotions: '&cSubject has no effects.'
+   StaffChat:
+      NonStaff: '&7[&l&4HelpOP&r&7] %player%&r: %message%'
+      Staff: '&7[&6&lStaffChat&r&7] %player%&r: %message%'
+      Start: '&3You are now participating in the staff chat.'
+      Stop: '&cYou are no longer participating in the staff chat.'
+   Smite:
+      PlayerOFfline: '%player% &cis offline.'
+      Provide: '&cPlease provide a victim.'
+      Smitten: '&6Experience the wrath of &4almighty zeus!'
+      Sent: '&6%player% has been smitten.'
+   Restart:
+      Warning: '&c&lRestart &6&l>> &4Server restarting in %amount% seconds!'
+      Now: '&c&lRestart &6&l>> &4Server restarting &0&lNOW!'
+      Stopped: '&c&lRestart &6&l>> &cServer restart halted.'
+      Reasoning: '&c&lRestart &6&l>> &9This is happening because of %reason%'
+   Sudo:
+      PlayerOffline: '%player% &cis offline.'
+      Run: '&3Forcing %player% to run &9%command%&c.'

@@ -1,0 +1,128 @@
+name: AlchemicTools
+main: me.alchemi.alchemictools.Tools
+version: ${project.version}
+author: Alchemi
+description: A plugin which contains some tools helpful for staff (and players).
+depend:
+- AlchemicLibrary
+softdepend:
+- PlaceholderAPI
+- MVdWPlaceholderAPI
+- ChatControl
+
+commands:
+   smite:
+      usage: /smite <heathen>
+      description: SEND A BOLT OF LIGHTING TO THAT HEATHEN.
+      permission: alchemictools.smite
+      aliases:
+      - wrath
+      
+   vanish:
+      usage: /vanish
+      description: Toggle vanish.
+      permission: alchemictools.vanish
+      aliases:
+      - v
+      
+   staffchat:
+      usage: /staffchat [message]
+      description: Toggle staffchat usage or send a singular message.
+      aliases:
+      - helpop
+      - adminchat
+      - ho
+      - ac
+      - sc
+      
+   sudo:
+      usage: /sudo <player> <command>
+      description: Force a player to run a command.
+      permission: alchemictools.sudo
+          
+   invsee:
+      usage: /invsee <player> [armour|potions|inventory]
+      description: Look at a players inventory
+      permission: alchemictools.invsee
+   
+   reboot:
+      usage: /reboot [delay] [reason]
+      description: Restart the server with a delay.
+      permission: alchemictools.restartserver
+      aliases:
+      - restartserver
+   
+   tools:
+      usage: /tools <reload>
+      description: AlchemicTools base command.
+      permission: alchemictools.tools
+      aliases:
+      - admintools
+      
+   channel:
+      usage: /channel <channel> [read-only]
+      description: Switch to a different channel.
+      aliases:
+      - ch
+      - cha
+      
+permissions:
+   alchemictools.smite:
+      description: Permission to SMITE HEATHENS.
+      default: op
+      
+   alchemictools.vanish:
+      description: Permission to vanish.
+      default: op
+      
+   alchemictools.vanish.see:
+      description: Permission to see vanished players.
+      default: op
+   
+   alchemictools.vanish.notify:
+      description: Get notified when a player goes into vanish.
+      default: op
+   
+   alchemictools.staffchat:
+      description: Permission to use the staff chat.
+      default: op
+      
+   alchemictools.helpop:
+      description: Permission to cry for help.
+      default: true
+      
+   alchemictools.sudo:
+      description: Permission to sudo a player.
+      default: op
+      
+   alchemictools.invsee:
+      description: Permission to see a players inventory.
+      default: op
+   
+   alchemictools.restartserver:
+      description: Permission to restart the server.
+      default: op
+      
+   alchemictools.tools:
+      description: Permission for base command.
+      default: op
+      
+   alchemictools.tools.reload:
+      description: Permission to reload configs.
+      default: op
+      
+   alchemictools.tools.sort:
+      description: Permission to sort your inventory.
+      default: op
+      
+   alchemictools.tools.autorefill:
+      description: Your inventory automatically gets refilled.
+      default: op
+      
+   alchemictools.channel.*:
+      description: Permission to read all channels.
+      default: op
+      
+   alchemictools.channel.spy:
+      description: Permission to spy channels.
+      default: op

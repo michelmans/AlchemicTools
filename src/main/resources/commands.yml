@@ -1,0 +1,6 @@
+# Define here which commands should be handled by which plugins.
+# Use the following format (case sensitive):
+# command_name: plugin_name
+commands:
+   sudo: AlchemicTools
+   
