@@ -59,3 +59,7 @@ AlchemicTools:
       # Wether to make use of bungee.
       # Default: true
       bungee: true
+      
+      # Wether to hook into worldguard.
+      # Default: true
+      worldguard: true

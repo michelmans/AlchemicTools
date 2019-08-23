@@ -29,7 +29,7 @@ public class Config extends ConfigBase {
 	}
 	
 	public static enum ConfigEnum implements IConfigEnum{
-		CONFIG(new File(Tools.getInstance().getDataFolder(), "config.yml"), 6),
+		CONFIG(new File(Tools.getInstance().getDataFolder(), "config.yml"), 7),
 		MESSAGES(new File(Tools.getInstance().getDataFolder(), "messages.yml"), 7),
 		COMMANDS(new File(Tools.getInstance().getDataFolder(), "commands.yml"), 2);
 
@@ -266,7 +266,8 @@ public class Config extends ConfigBase {
 		
 		MVDWPLACEHOLDERAPI("AlchemicTools.Hooks.mvdwplaceholderapi"),
 		CHATCONTROL("AlchemicTools.Hooks.chatcontrol"),
-		BUNGEE("AlchemicTools.Hooks.bungee");
+		BUNGEE("AlchemicTools.Hooks.bungee"),
+		WORLDGUARD("AlchemicTools.Hooks.worldguard");
 		
 		private Object value;
 		public final String key;

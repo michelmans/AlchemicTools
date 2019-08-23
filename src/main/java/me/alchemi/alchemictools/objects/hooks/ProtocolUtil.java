@@ -1,4 +1,4 @@
-package me.alchemi.alchemictools.objects;
+package me.alchemi.alchemictools.objects.hooks;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

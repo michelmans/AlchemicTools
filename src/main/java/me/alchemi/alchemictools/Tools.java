@@ -42,7 +42,8 @@ import me.alchemi.alchemictools.listener.vanish.PlayerJoin;
 import me.alchemi.alchemictools.listener.vanish.PlayerTarget;
 import me.alchemi.alchemictools.listener.vanish.RightClickEntity;
 import me.alchemi.alchemictools.listener.vanish.TabComplete;
-import me.alchemi.alchemictools.objects.ProtocolUtil;
+import me.alchemi.alchemictools.objects.hooks.ProtocolUtil;
+import me.alchemi.alchemictools.objects.hooks.worldguard.WorldGuardHook;
 import me.alchemi.alchemictools.objects.placeholder.MVdWExpansion;
 import me.alchemi.alchemictools.objects.placeholder.PapiExpansion;
 
@@ -59,6 +60,11 @@ public class Tools extends PluginBase implements Listener {
 	public static boolean chatControlPresent = false;
 	
 	private Config conf;
+	
+	@Override
+	public void onLoad() {
+		if (getServer().getPluginManager().getPlugin("WorldGuard") != null) WorldGuardHook.onLoad();
+	}
 	
 	@Override
 	public void onEnable() {
@@ -89,16 +95,20 @@ public class Tools extends PluginBase implements Listener {
 		enableCommands();
 		
 		// Placeholders
-		if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+		if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             new PapiExpansion().register();
             messenger.print("Placeholders registered.");
         }
-		if (getServer().getPluginManager().getPlugin("MVdWPlaceholderAPI") != null && Hooks.MVDWPLACEHOLDERAPI.asBoolean()) {
+		if (getServer().getPluginManager().isPluginEnabled("MVdWPlaceholderAPI") && Hooks.MVDWPLACEHOLDERAPI.asBoolean()) {
 			new MVdWExpansion();
 			messenger.print("Placeholders registered at MVdWPlaceholderAPI");
 		}
+		if (getServer().getPluginManager().isPluginEnabled("WorldGuard") && Hooks.WORLDGUARD.asBoolean()) {
+			WorldGuardHook.onEnable();
+		}
 		
 		registerEvents();
+	
 		
 		messenger.print("&4ALERT ALERT\n"
 				+ "&9THE DOCTOR &4IS DETECTED!\n"

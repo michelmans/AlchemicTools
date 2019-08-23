@@ -9,9 +9,9 @@ import me.alchemi.al.objects.meta.PersistentMeta;
 import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.Config;
 import me.alchemi.alchemictools.meta.VanishMeta;
-import me.alchemi.alchemictools.objects.ProtocolUtil;
 import me.alchemi.alchemictools.objects.Vanish;
 import me.alchemi.alchemictools.objects.Vanish.INDICATION;
+import me.alchemi.alchemictools.objects.hooks.ProtocolUtil;
 
 public class PlayerJoin implements Listener{
 

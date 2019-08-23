@@ -15,6 +15,7 @@ import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.Config;
 import me.alchemi.alchemictools.Config.Messages;
 import me.alchemi.alchemictools.meta.VanishMeta;
+import me.alchemi.alchemictools.objects.hooks.ProtocolUtil;
 import me.alchemi.alchemictools.objects.placeholder.Stringer;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
