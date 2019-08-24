@@ -7,6 +7,7 @@ import me.alchemi.al.objects.base.CommandBase;
 import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.Config.Messages;
 import me.alchemi.alchemictools.listener.commandstuff.DummyCommand;
+import me.alchemi.alchemictools.objects.uuidconverting.IConverter;
 
 public class ToolsCommand extends CommandBase{
 
@@ -25,6 +26,10 @@ public class ToolsCommand extends CommandBase{
 					
 				} else if (args[0].equals("reload")) {
 					sendNoPermission(sender, new DummyCommand("tools reload"));
+				} else if (args[0].equals("migrate-uuid")) {
+					Tools.getInstance().getIdResolver().apply();
+				} else if (args[0].equals("restore-backup")) {
+					IConverter.restoreBackups();
 				}
 			}
 		} else {

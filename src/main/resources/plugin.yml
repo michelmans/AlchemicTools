@@ -9,6 +9,7 @@ softdepend:
 - PlaceholderAPI
 - MVdWPlaceholderAPI
 - ChatControl
+- FabledSkyBlock
 
 commands:
    smite:
@@ -58,13 +59,6 @@ commands:
       permission: alchemictools.tools
       aliases:
       - admintools
-      
-   channel:
-      usage: /channel <channel> [read-only]
-      description: Switch to a different channel.
-      aliases:
-      - ch
-      - cha
       
 permissions:
    alchemictools.smite:
@@ -118,11 +112,7 @@ permissions:
    alchemictools.tools.autorefill:
       description: Your inventory automatically gets refilled.
       default: op
-      
-   alchemictools.channel.*:
-      description: Permission to read all channels.
-      default: op
-      
-   alchemictools.channel.spy:
-      description: Permission to spy channels.
-      default: op
+  
+   alchemictools.tools.changeuuid:
+      description: Change an offline mode players uuid to its online one.
+      default: false

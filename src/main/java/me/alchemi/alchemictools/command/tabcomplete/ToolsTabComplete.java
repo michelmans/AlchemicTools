@@ -22,6 +22,7 @@ public class ToolsTabComplete extends TabCompleteBase {
 
 		if (args.length <= 1) {
 			if (sender.hasPermission("alchemictools.tools.reload")) list.add("reload");
+			if (sender.hasPermission("alchemictools.tools.changeuuid")) list.add("migrate-uuid");
 		}
 		
 		return returnSortSuggest(list, args);

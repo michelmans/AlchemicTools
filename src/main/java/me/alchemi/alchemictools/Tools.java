@@ -46,6 +46,8 @@ import me.alchemi.alchemictools.objects.hooks.ProtocolUtil;
 import me.alchemi.alchemictools.objects.hooks.worldguard.WorldGuardHook;
 import me.alchemi.alchemictools.objects.placeholder.MVdWExpansion;
 import me.alchemi.alchemictools.objects.placeholder.PapiExpansion;
+import me.alchemi.alchemictools.objects.uuidconverting.GlobalConverter;
+import me.alchemi.alchemictools.objects.uuidconverting.UUIDResolver;
 
 public class Tools extends PluginBase implements Listener {
 
@@ -58,6 +60,8 @@ public class Tools extends PluginBase implements Listener {
 	
 	public static boolean protocolPresent = false;
 	public static boolean chatControlPresent = false;
+	
+	private UUIDResolver idResolver;
 	
 	private Config conf;
 	
@@ -107,9 +111,12 @@ public class Tools extends PluginBase implements Listener {
 			WorldGuardHook.onEnable();
 		}
 		
+
+		idResolver = new UUIDResolver();
+		idResolver.onEnable(getServer());
+		
 		registerEvents();
 	
-		
 		messenger.print("&4ALERT ALERT\n"
 				+ "&9THE DOCTOR &4IS DETECTED!\n"
 				+ "&9THE DOCTOR &4IS SURROUNDED\n"
@@ -121,7 +128,6 @@ public class Tools extends PluginBase implements Listener {
 	
 	@Override
 	public void onDisable() {
-		
 		messenger.print("No more...");
 	}
 	
@@ -173,7 +179,9 @@ public class Tools extends PluginBase implements Listener {
 				new PlayerJoin(), 
 				new PlayerTarget(), 
 				new AutoRefill(), 
-				staffchat));
+				staffchat,
+				idResolver,
+				new GlobalConverter()));
 		
 		if (getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
 			ProtocolUtil.listenChatPackets();
@@ -240,5 +248,9 @@ public class Tools extends PluginBase implements Listener {
 	
 	public Config getConf() {
 		return conf;
+	}
+	
+	public UUIDResolver getIdResolver() {
+		return idResolver;
 	}
 }

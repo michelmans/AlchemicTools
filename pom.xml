@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.alchemi</groupId>
 	<artifactId>alchemictools</artifactId>
-	<version>1.0.9</version>
+	<version>1.1.0</version>
 	<name>AlchemicTools</name>
 
 	<build>
@@ -43,7 +43,7 @@
 		</repository>
 		<repository>
 			<id>mvdw-software</id>
-			<url>http://repo.mvdw-software.be/content/groups/public/</url>			
+			<url>http://repo.mvdw-software.be/content/groups/public/</url>
 		</repository>
 		<repository>
 			<id>placeholderapi</id>
@@ -52,6 +52,10 @@
 		<repository>
 			<id>sk89q-repo</id>
 			<url>http://maven.sk89q.com/repo/</url>
+		</repository>
+		<repository>
+			<id>songoda</id>
+			<url>http://repo.songoda.com/artifactory/private/</url>
 		</repository>
 	</repositories>
 
@@ -109,6 +113,18 @@
 			<scope>system</scope>
 			<version>8.0.11</version>
 			<systemPath>${project.build.directory}\..\ChatControlProAPI_8.0.11.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.songoda</groupId>
+			<artifactId>FabledSkyBlock</artifactId>
+			<version>Build-78</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.drtshock</groupId>
+			<artifactId>PlayerVaultsX</artifactId>
+			<version>LATEST</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
