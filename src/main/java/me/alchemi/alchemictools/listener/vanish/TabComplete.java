@@ -6,9 +6,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.TabCompleteEvent;
 
-import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.Config.Messages;
 import me.alchemi.alchemictools.Config.Vanish;
+import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.objects.placeholder.Stringer;
 
 public class TabComplete implements Listener {

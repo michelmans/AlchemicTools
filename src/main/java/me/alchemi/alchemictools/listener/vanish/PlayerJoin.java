@@ -6,8 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import me.alchemi.al.objects.meta.PersistentMeta;
-import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.Config;
+import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.meta.VanishMeta;
 import me.alchemi.alchemictools.objects.Vanish;
 import me.alchemi.alchemictools.objects.Vanish.INDICATION;

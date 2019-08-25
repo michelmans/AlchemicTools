@@ -60,7 +60,8 @@ public class GlobalConverter implements IConverter {
 				files.addAll(getFiles(file));
 			} else {
 				if (file.getName().endsWith(".yml")
-						|| file.getName().endsWith(".json")) files.add(file);
+						|| file.getName().endsWith(".json")
+						|| file.getName().endsWith(".txt")) files.add(file);
 			}
 		}
 		return files;

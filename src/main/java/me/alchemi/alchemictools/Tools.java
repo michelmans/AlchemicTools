@@ -47,6 +47,7 @@ import me.alchemi.alchemictools.objects.hooks.worldguard.WorldGuardHook;
 import me.alchemi.alchemictools.objects.placeholder.MVdWExpansion;
 import me.alchemi.alchemictools.objects.placeholder.PapiExpansion;
 import me.alchemi.alchemictools.objects.uuidconverting.GlobalConverter;
+import me.alchemi.alchemictools.objects.uuidconverting.PlotSquaredConverter;
 import me.alchemi.alchemictools.objects.uuidconverting.UUIDResolver;
 
 public class Tools extends PluginBase implements Listener {
@@ -197,6 +198,9 @@ public class Tools extends PluginBase implements Listener {
 				&& getServer().getPluginManager().isPluginEnabled("ChatControl")) {
 			chatControlPresent = true;
 			listeners.add(new ChatControl());
+		}
+		if (getServer().getPluginManager().isPluginEnabled("PlotSquared")) {
+			listeners.add(new PlotSquaredConverter());
 		}
 				
 		for (Listener l : listeners) Bukkit.getPluginManager().registerEvents(l, this);

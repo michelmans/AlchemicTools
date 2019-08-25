@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.alchemi</groupId>
 	<artifactId>alchemictools</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 	<name>AlchemicTools</name>
 
 	<build>
@@ -56,6 +56,10 @@
 		<repository>
 			<id>songoda</id>
 			<url>http://repo.songoda.com/artifactory/private/</url>
+		</repository>
+		<repository>
+			<id>plotsquared</id>
+			<url>http://ci.athion.net/job/PlotSquared-Breaking/ws/mvn/</url>
 		</repository>
 	</repositories>
 
@@ -115,14 +119,20 @@
 			<systemPath>${project.build.directory}\..\ChatControlProAPI_8.0.11.jar</systemPath>
 		</dependency>
 		<dependency>
-			<groupId>com.songoda</groupId>
-			<artifactId>FabledSkyBlock</artifactId>
-			<version>Build-78</version>
+			<groupId>com.github.intellectualsites.plotsquared</groupId>
+			<artifactId>PlotSquared-API</artifactId>
+			<version>4.340</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.github.Sauilitired</groupId>
+					<artifactId>Jenkins4J</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.drtshock</groupId>
-			<artifactId>PlayerVaultsX</artifactId>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
 			<version>LATEST</version>
 			<scope>provided</scope>
 		</dependency>

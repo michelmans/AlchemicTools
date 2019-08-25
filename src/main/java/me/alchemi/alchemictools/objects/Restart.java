@@ -3,10 +3,10 @@ package me.alchemi.alchemictools.objects;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
-import me.alchemi.alchemictools.Tools;
 import me.alchemi.al.configurations.Messenger;
 import me.alchemi.alchemictools.Config.Messages;
 import me.alchemi.alchemictools.Config.Options;
+import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.objects.placeholder.Stringer;
 
 public class Restart {

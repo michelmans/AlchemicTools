@@ -5,8 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.alchemi.al.objects.base.CommandBase;
-import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.Config.Messages;
+import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.objects.Vanish;
 
 public class VanishCommand extends CommandBase {

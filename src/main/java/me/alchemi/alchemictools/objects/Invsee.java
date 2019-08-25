@@ -23,8 +23,8 @@ import com.google.common.collect.Lists;
 
 import me.alchemi.al.api.MaterialWrapper;
 import me.alchemi.al.configurations.Messenger;
-import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.Config.Messages;
+import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.objects.placeholder.Stringer;
 import net.md_5.bungee.api.ChatColor;
 

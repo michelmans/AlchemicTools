@@ -11,9 +11,9 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import me.alchemi.al.Library;
 import me.alchemi.al.objects.base.CommandBase;
-import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.Config.Messages;
 import me.alchemi.alchemictools.Config.Options;
+import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.objects.Restart;
 
 public class RestartCommand extends CommandBase implements Listener {

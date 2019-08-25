@@ -15,10 +15,10 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import me.alchemi.al.Library;
 import me.alchemi.al.configurations.Messenger;
-import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.Config.Hooks;
 import me.alchemi.alchemictools.Config.Messages;
 import me.alchemi.alchemictools.Config.Options;
+import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.bungee.BungeeMessage;
 import me.alchemi.alchemictools.bungee.BungeeMessage.Channel;
 import me.alchemi.alchemictools.objects.Permissions;

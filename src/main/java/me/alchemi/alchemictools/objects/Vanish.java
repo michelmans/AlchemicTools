@@ -11,9 +11,9 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.alchemi.al.configurations.Messenger;
 import me.alchemi.al.objects.meta.PersistentMeta;
-import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.Config;
 import me.alchemi.alchemictools.Config.Messages;
+import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.meta.VanishMeta;
 import me.alchemi.alchemictools.objects.hooks.ProtocolUtil;
 import me.alchemi.alchemictools.objects.placeholder.Stringer;

@@ -5,8 +5,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import me.alchemi.al.objects.base.CommandBase;
-import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.Config.Messages;
+import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.listener.staffchat.StaffChat;
 
 public class StaffChatCommand extends CommandBase {
