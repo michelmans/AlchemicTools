@@ -385,7 +385,11 @@ public class Config extends ConfigBase {
 		RESTART_STOPPED("AlchemicTools.Restart.Stopped"),
 		RESTART_REASONING("AlchemicTools.Restart.Reasoning"),
 		SUDO_PLAYEROFFLINE("AlchemicTools.Sudo.PlayerOffline"),
-		SUDO_RUN("AlchemicTools.Sudo.Run");
+		SUDO_RUN("AlchemicTools.Sudo.Run"),
+		UUID_FETCHED("AlchemicTools.UUID.Fetched"),
+		UUID_FAILED("AlchemicTools.UUID.Failed"),
+		UUID_KICKED("AlchemicTools.UUID.Kicked"),
+		UUID_NOJOIN("AlchemicTools.UUID.NoJoin");
 		
 		String value;
 		String key;

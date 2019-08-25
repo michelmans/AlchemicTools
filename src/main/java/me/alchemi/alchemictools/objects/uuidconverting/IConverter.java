@@ -56,6 +56,11 @@ public interface IConverter extends Listener {
 						.forEach(File::delete);
 					
 					FileUtils.copyDirectory(f, newDir);
+					
+					Files.walk(f.toPath())
+						.sorted(Comparator.reverseOrder())
+						.map(Path::toFile)
+						.forEach(File::delete);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

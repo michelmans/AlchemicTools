@@ -9,7 +9,7 @@ softdepend:
 - PlaceholderAPI
 - MVdWPlaceholderAPI
 - ChatControl
-- FabledSkyBlock
+- PlotSquared
 
 commands:
    smite:
@@ -113,6 +113,18 @@ permissions:
       description: Your inventory automatically gets refilled.
       default: op
   
-   alchemictools.tools.changeuuid:
+   alchemictools.tools.migrateuuid:
       description: Change an offline mode players uuid to its online one.
+      default: false
+      
+   alchemictools.tools.getuuid:
+      description: Permission to get the uuid of another account.
+      default: false
+    
+   alchemictools.tools.restore:
+      description: Permission to restore backups.
+      default: false
+      
+   alchemictools.tools.notify:
+      description: Permission to get notified.
       default: false

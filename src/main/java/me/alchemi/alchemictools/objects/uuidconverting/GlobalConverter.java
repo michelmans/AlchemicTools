@@ -32,6 +32,7 @@ public class GlobalConverter implements IConverter {
 				IConverter.backupDir(new File(Bukkit.getWorldContainer(), "plugins"));
 				Tools.getInstance().getMessenger().print("&cStarting GLOBAL uuid migration!\n&4--DO NOT JOIN UNTIL COMPLETE--");				
 				for (File file : files) {
+					Tools.getInstance().setUuidConverting(true);
 					Tools.getInstance().getMessenger().print("&9Trying to migrate " + file.getPath());
 					m = regex.matcher(file.getName());
 					if (m.find()) {
@@ -48,6 +49,7 @@ public class GlobalConverter implements IConverter {
 					IConverter.migrateFile(e, file, newFile);
 				}
 				Tools.getInstance().getMessenger().print("&aUUID migration complete!");
+				Tools.getInstance().setUuidConverting(false);
 			}
 		}.runTaskAsynchronously(Tools.getInstance());
 

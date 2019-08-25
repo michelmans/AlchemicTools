@@ -33,3 +33,8 @@ AlchemicTools:
    Sudo:
       PlayerOffline: '%player% &cis offline.'
       Run: '&3Forcing %player% to run &9%command%&c.'
+   UUID:
+      Fetched: '&aGotten online UUID for %player%.'
+      Failed: '&cFailed to get online UUID for %player%.'
+      Kicked: '&cYou''re kicked because the server is converting UUIDs and restarting afterwards.'
+      NoJoin: '&cYou cannot join right now because the server is converting UUIDs.'

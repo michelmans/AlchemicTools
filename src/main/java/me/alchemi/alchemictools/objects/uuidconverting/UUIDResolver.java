@@ -16,20 +16,27 @@ import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
+import me.alchemi.alchemictools.Config.Messages;
 import me.alchemi.alchemictools.Tools;
+import me.alchemi.alchemictools.objects.Restart;
 import me.alchemi.alchemictools.objects.events.OnlineUUIDApplyEvent;
+import me.alchemi.alchemictools.objects.placeholder.Stringer;
 
 public class UUIDResolver implements Listener{
 	
 	private Map<String, UUID> onlineUUIDS = new HashMap<String, UUID>();
-	private List<String> failedPlayers = new ArrayList<String>();	
+	private List<String> failedPlayers = new ArrayList<String>();
+	private BukkitTask task;
 	
 	public void onEnable(Server server) {
 		onlineUUIDS.clear();
@@ -51,12 +58,21 @@ public class UUIDResolver implements Listener{
 		
 			UUID id = UUID.fromString(newUUIDString);
 			
-			Tools.getInstance().getMessenger().print("&aGotten online UUID for " + playername);
-			Tools.getInstance().getMessenger().print("&a" + id.toString());
+			Tools.getInstance().getMessenger().print(new Stringer(Messages.UUID_FETCHED)
+					.player(playername)
+					.create());
+			Tools.getInstance().getMessenger().broadcast(new Stringer(Messages.UUID_FETCHED)
+					.player(playername)
+					.create(), true, Player -> Player.hasPermission("alchemictools.tools.notify"));
 			
 			return id;
 		} catch (IOException | ParseException | IllegalArgumentException | IndexOutOfBoundsException e) {
-			Tools.getInstance().getMessenger().print("&cFailed to get online UUID for " + playername);
+			Tools.getInstance().getMessenger().print(new Stringer(Messages.UUID_FAILED)
+					.player(playername)
+					.create());
+			Tools.getInstance().getMessenger().broadcast(new Stringer(Messages.UUID_FAILED)
+					.player(playername)
+					.create(), true, Player -> Player.hasPermission("alchemictools.tools.notify"));
 		}
 		return null;
 	}
@@ -73,12 +89,31 @@ public class UUIDResolver implements Listener{
 		}.runTaskAsynchronously(Tools.getInstance());
 	}
 	
+	public void requestCustomUUIDWrapper(OfflinePlayer oldPlayer, String newPlayername, BiConsumer<String, UUID> function, Consumer<String> failedFunction) {
+		new BukkitRunnable() {
+			
+			@Override
+			public void run() {
+				UUID id = requestUUID(newPlayername);
+				if (id != null) function.accept(oldPlayer.getName(), id);
+				else failedFunction.accept(oldPlayer.getName());
+				
+			}
+		}.runTaskAsynchronously(Tools.getInstance());
+	}
+	
 	public void apply() {
 		if (Bukkit.getOnlineMode())	Bukkit.getPluginManager().callEvent(new OnlineUUIDApplyEvent(onlineUUIDS));
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onNewUUIDApply(OnlineUUIDApplyEvent e) {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			player.kickPlayer(new Stringer(Messages.UUID_KICKED)
+					.player(player)
+					.parse(player)
+					.create());
+		}
 		new BukkitRunnable() {
 			
 			@Override
@@ -88,12 +123,36 @@ public class UUIDResolver implements Listener{
 				IConverter.backupDir(dataFile);
 				Tools.getInstance().getMessenger().print("Preparing to rename .dat files...");
 				for (UUID old : e.getOldUUIDs()) {
+					Tools.getInstance().setUuidConverting(true);
 					File datFile = new File(dataFile, old.toString() + ".dat");
 					datFile.renameTo(new File(dataFile, e.getNewUUID(old).toString() + ".dat"));
 					Tools.getInstance().getMessenger().print("Renamed " + old.toString() + ".dat to " + e.getNewUUID(old) + ".dat");
 				}
+				Tools.getInstance().setUuidConverting(false);
 			}
 		}.runTaskAsynchronously(Tools.getInstance());
+	}
+	
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void afterNewUUIDApply(OnlineUUIDApplyEvent e) {
+		task = new BukkitRunnable() {
+			
+			@Override
+			public void run() {
+				if (!Tools.getInstance().isUuidConverting()) {				
+					new Restart(Bukkit.getConsoleSender(), 10, "UUID migration.");
+					task.cancel();
+				}
+			}
+		}.runTaskTimer(Tools.getInstance(), 40, 80);
+	}
+	
+	public void putOnlineUUID(String playername, UUID uuid) {
+		onlineUUIDS.put(playername, uuid);
+	}
+	
+	public void addFailedPlayer(String playername) {
+		failedPlayers.add(playername);
 	}
 
 }

@@ -34,6 +34,7 @@ import me.alchemi.alchemictools.command.tabcomplete.RestartTabComplete;
 import me.alchemi.alchemictools.command.tabcomplete.SudoTabComplete;
 import me.alchemi.alchemictools.command.tabcomplete.ToolsTabComplete;
 import me.alchemi.alchemictools.listener.AutoRefill;
+import me.alchemi.alchemictools.listener.PrePlayerJoin;
 import me.alchemi.alchemictools.listener.staffchat.ChatControl;
 import me.alchemi.alchemictools.listener.staffchat.StaffChat;
 import me.alchemi.alchemictools.listener.vanish.ListPing;
@@ -61,6 +62,8 @@ public class Tools extends PluginBase implements Listener {
 	
 	public static boolean protocolPresent = false;
 	public static boolean chatControlPresent = false;
+	
+	private boolean uuidConverting = false;
 	
 	private UUIDResolver idResolver;
 	
@@ -182,7 +185,8 @@ public class Tools extends PluginBase implements Listener {
 				new AutoRefill(), 
 				staffchat,
 				idResolver,
-				new GlobalConverter()));
+				new GlobalConverter(),
+				new PrePlayerJoin()));
 		
 		if (getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
 			ProtocolUtil.listenChatPackets();
@@ -256,5 +260,13 @@ public class Tools extends PluginBase implements Listener {
 	
 	public UUIDResolver getIdResolver() {
 		return idResolver;
+	}
+	
+	public boolean isUuidConverting() {
+		return uuidConverting;
+	}
+	
+	public void setUuidConverting(boolean uuidConverting) {
+		this.uuidConverting = uuidConverting;
 	}
 }
