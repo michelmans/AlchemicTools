@@ -29,7 +29,7 @@ public class Config extends ConfigBase {
 	}
 	
 	public static enum ConfigEnum implements IConfigEnum{
-		CONFIG(new File(Tools.getInstance().getDataFolder(), "config.yml"), 8),
+		CONFIG(new File(Tools.getInstance().getDataFolder(), "config.yml"), 9),
 		MESSAGES(new File(Tools.getInstance().getDataFolder(), "messages.yml"), 8),
 		COMMANDS(new File(Tools.getInstance().getDataFolder(), "commands.yml"), 2);
 
@@ -66,6 +66,7 @@ public class Config extends ConfigBase {
 		MESSAGE_MENTIONCOLOUR("AlchemicTools.Message.mentionColour"),
 		MESSAGE_RECEIVESOUND("AlchemicTools.Message.receiveSound"),
 		MESSAGE_MENTIONSOUND("AlchemicTools.Message.mentionSound"),
+		MESSAGE_BYPASSSTAFFCHATCHARACTER("AlchemicTools.Message.bypassStaffChatCharacter"),
 		RESTART_DEFAULTDELAY("AlchemicTools.Restart.defaultDelay"),
 		RESTART_WARNINGS("AlchemicTools.Restart.warnings"),
 		RESTART_DEFAULTMESSAGE("AlchemicTools.Restart.defaultMessage"),

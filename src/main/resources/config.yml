@@ -4,6 +4,7 @@ AlchemicTools:
       mentionColour: '&b&n'
       receiveSound: ENTITY_CHICKEN_EGG
       mentionSound: ENTITY_ENDER_DRAGON_GROWL
+      bypassStaffChatCharacter: "!"
       
    Vanish:
       
