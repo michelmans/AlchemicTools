@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import me.alchemi.al.Library;
 import me.alchemi.al.objects.base.CommandBase;
 import me.alchemi.alchemictools.Config.Messages;
+import me.alchemi.alchemictools.Config.Options;
 import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.listener.commandstuff.DummyCommand;
 import me.alchemi.alchemictools.objects.placeholder.Stringer;
@@ -35,7 +36,7 @@ public class ToolsCommand extends CommandBase{
 					Tools.getInstance().getConf().reload();
 					messenger.sendMessage(Messages.COMMANDS_RELOAD.value(), sender);
 					
-				} else if (args[0].equals("migrate-uuid")) {
+				} else if (args[0].equals("migrate-uuid") && Options.UUIDCONVERSION.asBoolean()) {
 					
 					if (!sender.hasPermission("alchemictools.tools.migrateuuid")) {
 						sendNoPermission(sender, new DummyCommand("tools migrate-uuid"));
@@ -51,7 +52,7 @@ public class ToolsCommand extends CommandBase{
 					IConverter.restoreBackups();
 				} else return false;
 			} else if (args.length == 3) {
-				if (args[0].equals("get-uuid")) {
+				if (args[0].equals("get-uuid") && Options.UUIDCONVERSION.asBoolean()) {
 					if (!sender.hasPermission("alchemictools.tools.getuuid")) {
 						sendNoPermission(sender, new DummyCommand("tools get-uuid"));
 						return true;

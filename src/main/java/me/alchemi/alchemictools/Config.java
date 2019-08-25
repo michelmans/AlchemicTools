@@ -29,8 +29,8 @@ public class Config extends ConfigBase {
 	}
 	
 	public static enum ConfigEnum implements IConfigEnum{
-		CONFIG(new File(Tools.getInstance().getDataFolder(), "config.yml"), 7),
-		MESSAGES(new File(Tools.getInstance().getDataFolder(), "messages.yml"), 7),
+		CONFIG(new File(Tools.getInstance().getDataFolder(), "config.yml"), 8),
+		MESSAGES(new File(Tools.getInstance().getDataFolder(), "messages.yml"), 8),
 		COMMANDS(new File(Tools.getInstance().getDataFolder(), "commands.yml"), 2);
 
 		final File file;
@@ -68,7 +68,8 @@ public class Config extends ConfigBase {
 		MESSAGE_MENTIONSOUND("AlchemicTools.Message.mentionSound"),
 		RESTART_DEFAULTDELAY("AlchemicTools.Restart.defaultDelay"),
 		RESTART_WARNINGS("AlchemicTools.Restart.warnings"),
-		RESTART_DEFAULTMESSAGE("AlchemicTools.Restart.defaultMessage");
+		RESTART_DEFAULTMESSAGE("AlchemicTools.Restart.defaultMessage"),
+		UUIDCONVERSION("AlchemicTools.UUIDConversion");
 		
 		private Object value;
 		public final String key;

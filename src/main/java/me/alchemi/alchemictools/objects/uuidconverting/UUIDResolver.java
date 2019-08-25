@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -16,6 +17,8 @@ import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -38,11 +41,23 @@ public class UUIDResolver implements Listener{
 	private List<String> failedPlayers = new ArrayList<String>();
 	private BukkitTask task;
 	
+	private static final File configFile = new File(Tools.getInstance().getDataFolder(), "custom-uuids.yml");
+	
 	public void onEnable(Server server) {
+		if (!configFile.exists())
+			try {
+				configFile.createNewFile();
+			} catch (IOException e) {}
+		
 		onlineUUIDS.clear();
 		failedPlayers.clear();
 		for (OfflinePlayer player : server.getOfflinePlayers()) {
 			if (UUID.nameUUIDFromBytes(("OfflinePlayer:" + player.getName()).getBytes()).equals(player.getUniqueId())) requestUUIDWrapper(player.getName(), onlineUUIDS::put, failedPlayers::add);
+		}
+		
+		FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+		for (Entry<String, Object> entry : config.getValues(true).entrySet()) {
+			onlineUUIDS.put(entry.getKey(), UUID.fromString(entry.getValue().toString()));
 		}
 	}
 	
@@ -95,7 +110,14 @@ public class UUIDResolver implements Listener{
 			@Override
 			public void run() {
 				UUID id = requestUUID(newPlayername);
-				if (id != null) function.accept(oldPlayer.getName(), id);
+				if (id != null) {
+					function.accept(oldPlayer.getName(), id);
+					FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+					config.set(oldPlayer.getName(), id.toString());
+					try {
+						config.save(configFile);
+					} catch (IOException e) {}
+				}
 				else failedFunction.accept(oldPlayer.getName());
 				
 			}
@@ -140,6 +162,15 @@ public class UUIDResolver implements Listener{
 			@Override
 			public void run() {
 				if (!Tools.getInstance().isUuidConverting()) {				
+					
+					FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+					for (String key : config.getValues(true).keySet()) {
+						config.set(key, null);
+					}
+					try {
+						config.save(configFile);
+					} catch (IOException e) {}
+					
 					new Restart(Bukkit.getConsoleSender(), 10, "UUID migration.");
 					task.cancel();
 				}

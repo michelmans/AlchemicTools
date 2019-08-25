@@ -21,6 +21,7 @@ import me.alchemi.al.Library;
 import me.alchemi.al.configurations.Messenger;
 import me.alchemi.al.objects.base.PluginBase;
 import me.alchemi.alchemictools.Config.Hooks;
+import me.alchemi.alchemictools.Config.Options;
 import me.alchemi.alchemictools.bungee.BungeeReceiver;
 import me.alchemi.alchemictools.command.InvseeCommand;
 import me.alchemi.alchemictools.command.RestartCommand;
@@ -115,9 +116,10 @@ public class Tools extends PluginBase implements Listener {
 			WorldGuardHook.onEnable();
 		}
 		
-
-		idResolver = new UUIDResolver();
-		idResolver.onEnable(getServer());
+		if (Options.UUIDCONVERSION.asBoolean()){
+			idResolver = new UUIDResolver();
+			idResolver.onEnable(getServer());
+		}
 		
 		registerEvents();
 	

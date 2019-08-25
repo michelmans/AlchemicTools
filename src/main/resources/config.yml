@@ -46,6 +46,10 @@ AlchemicTools:
       warnings: 5
       defaultMessage: 'a scheduled restart'
    
+   # Wether or not to enable UUID conversion.
+   # Default: true
+   UUIDConversion: true
+   
    Hooks:
       
       # Wether to hook into mvdwplaceholderapi.
