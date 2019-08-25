@@ -48,8 +48,8 @@ AlchemicTools:
       defaultMessage: 'a scheduled restart'
    
    # Wether or not to enable UUID conversion.
-   # Default: true
-   UUIDConversion: true
+   # Default: false
+   UUIDConversion: false
    
    Hooks:
       
