@@ -125,7 +125,7 @@ public class UUIDResolver implements Listener{
 	}
 	
 	public void apply() {
-		if (Bukkit.getOnlineMode())	Bukkit.getPluginManager().callEvent(new OnlineUUIDApplyEvent(onlineUUIDS));
+		Bukkit.getPluginManager().callEvent(new OnlineUUIDApplyEvent(onlineUUIDS));
 	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
