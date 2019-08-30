@@ -186,9 +186,10 @@ public class Tools extends PluginBase implements Listener {
 				new PlayerTarget(), 
 				new AutoRefill(), 
 				staffchat,
-				idResolver,
 				new GlobalConverter(),
 				new PrePlayerJoin()));
+		 
+		if (idResolver != null) listeners.add(idResolver);
 		
 		if (getServer().getPluginManager().getPlugin("ProtocolLib") != null) {
 			ProtocolUtil.listenChatPackets();
@@ -209,7 +210,11 @@ public class Tools extends PluginBase implements Listener {
 			listeners.add(new PlotSquaredConverter());
 		}
 				
-		for (Listener l : listeners) Bukkit.getPluginManager().registerEvents(l, this);
+		for (Listener l : listeners) {
+			Bukkit.getPluginManager().registerEvents(l, this);
+			messenger.print("Registered the " + l.getClass().getSimpleName() + " listener.");
+		}
+			
 		
 		if (Hooks.BUNGEE.asBoolean()) {
 			Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
