@@ -46,6 +46,7 @@ public class ProtocolUtil {
 		
 		try {
 			ProtocolLibrary.getProtocolManager().sendServerPacket(receiver, packet);
+			
 		} catch (InvocationTargetException e) {
 			throw new RuntimeException("Cannot send packet", e);
 		}

@@ -20,7 +20,7 @@ commands:
       - wrath
       
    vanish:
-      usage: /vanish
+      usage: /vanish [special]
       description: Toggle vanish.
       permission: alchemictools.vanish
       aliases:
@@ -76,6 +76,14 @@ permissions:
    alchemictools.vanish.notify:
       description: Get notified when a player goes into vanish.
       default: op
+      
+   alchemictools.vanish.special.see:
+      description: See a special vanished player.
+      default: false
+      
+   alchemictools.vanish.special.notify:
+      description: Get notified when an admin goes into vanish.
+      default: false
    
    alchemictools.staffchat:
       description: Permission to use the staff chat.

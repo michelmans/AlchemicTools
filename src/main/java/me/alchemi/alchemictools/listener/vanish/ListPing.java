@@ -16,13 +16,10 @@ public class ListPing implements Listener {
 		
 		Iterator<Player> iter = e.iterator();
 		
-		System.out.println(Tools.getInstance().getVanishedPlayers());
-		
 		while (iter.hasNext()) {
 			Player next = iter.next();
 			if (Tools.getInstance().getVanishedPlayers().contains(next)) {
 				iter.remove();
-				System.out.println(next);
 			}
 		}
 		

@@ -1,4 +1,9 @@
 AlchemicTools:
+
+   # The name of the server.
+   # This field isn't needed if the bungee hook is disabled.
+   servername: 'Unknown Server'
+
    Message:
       mentionTag: '@'
       mentionColour: '&b&n'

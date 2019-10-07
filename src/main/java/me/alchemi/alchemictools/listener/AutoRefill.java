@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -36,7 +37,6 @@ public class AutoRefill implements Listener {
 	
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onItemUse(PlayerItemBreakEvent e) {
-		System.out.println(e.getBrokenItem());
 		refill(e.getBrokenItem(), e.getPlayer(), 
 				e.getPlayer().getInventory().getItemInMainHand().equals(e.getBrokenItem()) ? EquipmentSlot.HAND : EquipmentSlot.OFF_HAND);
 	}
@@ -54,12 +54,12 @@ public class AutoRefill implements Listener {
 		
 		if (e.getAction() == Action.LEFT_CLICK_AIR 
 				|| e.getAction() == Action.LEFT_CLICK_BLOCK
-				|| MaterialWrapper.getFromItemStack(item).isEdible()
+				|| MaterialWrapper.getWrapper(item).isEdible()
 				|| (e.getHand() == EquipmentSlot.HAND 
-						&& (item == null || !MaterialWrapper.getFromItemStack(item).isBlock()
-								|| MaterialWrapper.getFromItemStack(item) == MaterialWrapper.AIR.getMaterial())
+						&& (item == null || !MaterialWrapper.getWrapper(item).isBlock()
+								|| MaterialWrapper.getWrapper(item) == MaterialWrapper.AIR.getMaterial())
 						&& (e.getPlayer().getInventory().getItemInOffHand() != null
-								&& MaterialWrapper.getFromItemStack(e.getPlayer().getInventory().getItemInOffHand()).isBlock()))) return;
+								&& MaterialWrapper.getWrapper(e.getPlayer().getInventory().getItemInOffHand()).isBlock()))) return;
 		
 		if (fromKey != null
 				&& item != null
@@ -73,6 +73,11 @@ public class AutoRefill implements Listener {
 	}
 	
 	protected void refill(ItemStack item, Player player, EquipmentSlot slot) {
+		
+		if (player.getGameMode() == GameMode.CREATIVE ||
+				player.getGameMode() == GameMode.SPECTATOR ||
+				!Permissions.TOOLS_AUTOREFILL.check(player)) return; 
+		
 		Bukkit.getScheduler().runTaskLater(Tools.getInstance(), new Runnable() {
 			
 			@Override
@@ -85,11 +90,9 @@ public class AutoRefill implements Listener {
 	}
 	
 	protected void refillSchedule(ItemStack item, Player player, EquipmentSlot slot) {
-				
-		if (!Permissions.TOOLS_AUTOREFILL.check(player)) return;
 		
 		PlayerInventory inventory = player.getInventory();
-		Material m = MaterialWrapper.getFromItemStack(item);
+		Material m = MaterialWrapper.getWrapper(item);
 		
 		if (inventory.contains(m)) {
 			int ind = -1;

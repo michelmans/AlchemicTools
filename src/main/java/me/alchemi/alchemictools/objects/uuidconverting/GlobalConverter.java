@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.alchemi.alchemictools.Tools;
@@ -17,7 +18,7 @@ import me.alchemi.alchemictools.objects.events.OnlineUUIDApplyEvent;
 public class GlobalConverter implements IConverter {
 
 	@Override
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onNewUUIDApply(OnlineUUIDApplyEvent e) {
 		
 		new BukkitRunnable() {

@@ -55,6 +55,11 @@ public class Stringer implements IStringer{
 		string = string.replace("%message%", message);
 		return this;
 	}
+	
+	public Stringer server(String server) {
+		string = string.replace("%server%", server);
+		return this;
+	}
 
 	@Override
 	public Stringer parse(Player player) {

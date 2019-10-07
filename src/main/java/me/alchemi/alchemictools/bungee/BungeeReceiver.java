@@ -32,12 +32,14 @@ public class BungeeReceiver implements PluginMessageListener{
 				byte[] msgbytes = new byte[len];
 				in.readFully(msgbytes);
 				
+				String server = "Unknown Server";
 				String sender = null;
 				boolean staff = false;
 				
 				String msg = null;
 				DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
 				try {
+					server = msgin.readUTF();
 					sender = msgin.readUTF();
 					staff = msgin.readBoolean();
 					msg = msgin.readUTF();
@@ -45,7 +47,7 @@ public class BungeeReceiver implements PluginMessageListener{
 					e.printStackTrace();
 				}
 				
-				if (!(sender == null && msg == null)) Tools.getInstance().getStaffchat().send(sender, staff, msg);
+				if (!(sender == null && msg == null)) Tools.getInstance().getStaffchat().send(server, sender, staff, msg);
 				break;
 			case VANISH:
 				break;

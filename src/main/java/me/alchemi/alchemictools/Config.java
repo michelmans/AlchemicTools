@@ -5,19 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.alchemi.al.api.MaterialWrapper;
 import me.alchemi.al.configurations.SexyConfiguration;
 import me.alchemi.al.objects.base.ConfigBase;
 import me.alchemi.alchemictools.listener.commandstuff.AdvancedCommand;
@@ -29,8 +24,8 @@ public class Config extends ConfigBase {
 	}
 	
 	public static enum ConfigEnum implements IConfigEnum{
-		CONFIG(new File(Tools.getInstance().getDataFolder(), "config.yml"), 9),
-		MESSAGES(new File(Tools.getInstance().getDataFolder(), "messages.yml"), 8),
+		CONFIG(new File(Tools.getInstance().getDataFolder(), "config.yml"), 10),
+		MESSAGES(new File(Tools.getInstance().getDataFolder(), "messages.yml"), 9),
 		COMMANDS(new File(Tools.getInstance().getDataFolder(), "commands.yml"), 2);
 
 		final File file;
@@ -62,6 +57,7 @@ public class Config extends ConfigBase {
 	public static SexyConfiguration config;
 	
 	public static enum Options implements IConfig {
+		SERVERNAME("AlchemicTools.servername"),
 		MESSAGE_MENTIONTAG("AlchemicTools.Message.mentionTag"),
 		MESSAGE_MENTIONCOLOUR("AlchemicTools.Message.mentionColour"),
 		MESSAGE_RECEIVESOUND("AlchemicTools.Message.receiveSound"),
@@ -88,62 +84,7 @@ public class Config extends ConfigBase {
 		@Override
 		public Object value() {
 			return value;
-		}
-		
-		@Override
-		public boolean asBoolean() {
-			return Boolean.parseBoolean(asString());
-		}
-		
-		@Override
-		public String asString() {
-			return String.valueOf(value);
-		}
-		
-		@Override
-		public Sound asSound() {
-			
-			return Sound.valueOf(asString());
-		}
-		
-		@SuppressWarnings("unchecked")
-		@Override
-		public List<String> asStringList() {
-			try {
-				return (List<String>) value;
-			} catch (ClassCastException e) { return null; }
-		}
-		
-		@Override
-		public int asInt() {
-			return Integer.valueOf(asString());
-		}
-		
-		public double asDouble() {
-			return Double.valueOf(asString());
-		}
-		
-		@Override
-		public ItemStack asItemStack() {
-			try {
-				return (ItemStack) value;
-			} catch (ClassCastException e) { return null; }
-		}
-		
-		@Override
-		public Material asMaterial() {
-			return MaterialWrapper.getWrapper(asString());
-		}
-		
-		@SuppressWarnings("unchecked")
-		@Override
-		public List<Integer> asIntList(){
-			try {
-				return (List<Integer>) value;
-			} catch (ClassCastException e) { return null; }
-		}
-
-		@Override
+		}		@Override
 		public String key() {
 			return key;
 		}
@@ -152,15 +93,6 @@ public class Config extends ConfigBase {
 		public SexyConfiguration getConfig() {
 			return ConfigEnum.CONFIG.getConfig();
 		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		public List<Float> asFloatList() {
-			try {
-				return (List<Float>) value;
-			} catch (ClassCastException e) { return null; }
-		}
-		
 	}
 	
 	public static enum Vanish implements IConfig {
@@ -170,7 +102,7 @@ public class Config extends ConfigBase {
 		ACTION_BAR("AlchemicTools.Vanish.actionBar"),
 		INDICATION("AlchemicTools.Vanish.indication"),
 		TAB_PREFIX("AlchemicTools.Vanish.tabPrefix"),
-		RIGHT_CLICK_INVENTORY("AlchemicTools.Vanish.rightClickInventory"),
+		RIGHT_CLICK_INVENTORY("AlchemicTools.Vanish.righClickInventory"),
 		LEFT_CLICK_EFFECTS("AlchemicTools.Vanish.leftClickEffects"),
 		CANCEL_COMMANDS("AlchemicTools.Vanish.cancelCommands");
 		
@@ -193,59 +125,6 @@ public class Config extends ConfigBase {
 		}
 		
 		@Override
-		public boolean asBoolean() {
-			return Boolean.parseBoolean(asString());
-		}
-		
-		@Override
-		public String asString() {
-			return String.valueOf(value);
-		}
-		
-		@Override
-		public Sound asSound() {
-			
-			return Sound.valueOf(asString());
-		}
-		
-		@SuppressWarnings("unchecked")
-		@Override
-		public List<String> asStringList() {
-			try {
-				return (List<String>) value;
-			} catch (ClassCastException e) { return null; }
-		}
-		
-		@Override
-		public int asInt() {
-			return Integer.valueOf(asString());
-		}
-		
-		public double asDouble() {
-			return Double.valueOf(asString());
-		}
-		
-		@Override
-		public ItemStack asItemStack() {
-			try {
-				return (ItemStack) value;
-			} catch (ClassCastException e) { return null; }
-		}
-		
-		@Override
-		public Material asMaterial() {
-			return MaterialWrapper.getWrapper(asString());
-		}
-		
-		@SuppressWarnings("unchecked")
-		@Override
-		public List<Integer> asIntList(){
-			try {
-				return (List<Integer>) value;
-			} catch (ClassCastException e) { return null; }
-		}
-
-		@Override
 		public String key() {
 			return key;
 		}
@@ -253,14 +132,6 @@ public class Config extends ConfigBase {
 		@Override
 		public SexyConfiguration getConfig() {
 			return ConfigEnum.CONFIG.getConfig();
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		public List<Float> asFloatList() {
-			try {
-				return (List<Float>) value;
-			} catch (ClassCastException e) { return null; }
 		}
 	}
 	
@@ -290,59 +161,6 @@ public class Config extends ConfigBase {
 		}
 		
 		@Override
-		public boolean asBoolean() {
-			return Boolean.parseBoolean(asString());
-		}
-		
-		@Override
-		public String asString() {
-			return String.valueOf(value);
-		}
-		
-		@Override
-		public Sound asSound() {
-			
-			return Sound.valueOf(asString());
-		}
-		
-		@SuppressWarnings("unchecked")
-		@Override
-		public List<String> asStringList() {
-			try {
-				return (List<String>) value;
-			} catch (ClassCastException e) { return null; }
-		}
-		
-		@Override
-		public int asInt() {
-			return Integer.valueOf(asString());
-		}
-		
-		public double asDouble() {
-			return Double.valueOf(asString());
-		}
-		
-		@Override
-		public ItemStack asItemStack() {
-			try {
-				return (ItemStack) value;
-			} catch (ClassCastException e) { return null; }
-		}
-		
-		@Override
-		public Material asMaterial() {
-			return MaterialWrapper.getWrapper(asString());
-		}
-		
-		@SuppressWarnings("unchecked")
-		@Override
-		public List<Integer> asIntList(){
-			try {
-				return (List<Integer>) value;
-			} catch (ClassCastException e) { return null; }
-		}
-
-		@Override
 		public String key() {
 			return key;
 		}
@@ -350,14 +168,6 @@ public class Config extends ConfigBase {
 		@Override
 		public SexyConfiguration getConfig() {
 			return ConfigEnum.CONFIG.getConfig();
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		public List<Float> asFloatList() {
-			try {
-				return (List<Float>) value;
-			} catch (ClassCastException e) { return null; }
 		}
 	}
 	
@@ -368,6 +178,7 @@ public class Config extends ConfigBase {
 		COMMANDS_UNKNOWN("AlchemicTools.Commands.Unknown"),
 		VANISH_START("AlchemicTools.Vanish.Start"),
 		VANISH_STOP("AlchemicTools.Vanish.Stop"),
+		VANISH_SPECIAL("AlchemicTools.Vanish.Special"),
 		VANISH_NOTIFYSTART("AlchemicTools.Vanish.NotifyStart"),
 		VANISH_NOTIFYSTOP("AlchemicTools.Vanish.NotifyStop"),
 		VANISH_PERSISTENTNOTIFICATION("AlchemicTools.Vanish.PersistentNotification"),
@@ -376,6 +187,8 @@ public class Config extends ConfigBase {
 		INVSEE_NOPOTIONS("AlchemicTools.Invsee.NoPotions"),
 		STAFFCHAT_NONSTAFF("AlchemicTools.StaffChat.NonStaff"),
 		STAFFCHAT_STAFF("AlchemicTools.StaffChat.Staff"),
+		STAFFCHAT_NONSTAFFBUNGEE("AlchemicTools.StaffChat.NonStaffBungee"),
+		STAFFCHAT_STAFFBUNGEE("AlchemicTools.StaffChat.StaffBungee"),
 		STAFFCHAT_START("AlchemicTools.StaffChat.Start"),
 		STAFFCHAT_STOP("AlchemicTools.StaffChat.Stop"),
 		SMITE_PLAYEROFFLINE("AlchemicTools.Smite.PlayerOFfline"),

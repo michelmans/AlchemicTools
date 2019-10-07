@@ -28,7 +28,7 @@ public class Vanish {
 		SPECTATOR, PREFIX, NONE;
 	}
 	
-	public static void toggle(Player player) {
+	public static void toggle(Player player, boolean special) {
 		
 		boolean vanish = false;
 		
@@ -37,20 +37,23 @@ public class Vanish {
 		}
 		
 		PersistentMeta.setMeta(player, new VanishMeta(Tools.getInstance(), !vanish));
-		vanish(player, !vanish);
+		vanish(player, !vanish, special);
 	}
 		
-	public static void vanish(Player player, boolean vanish) {
+	public static void vanish(Player player, boolean vanish) { vanish(player, vanish, true); }
+	
+	public static void vanish(Player player, boolean vanish, boolean special) {
 		if (vanish) {
 			
 			Tools.getInstance().addVanishedPlayers(player);
 			Tools.getInstance().getStaffchat().addListener(player);
 			
 			for (Player p : Bukkit.getOnlinePlayers()) {
-				if (!p.hasPermission("alchemictools.vanish.see") && !p.equals(player)) {
+				if (!(p.hasPermission("alchemictools.vanish.see") 
+						|| p.equals(player))
+						&& (special && !p.hasPermission("alchemictools.vanish.seespecial"))) {
 					p.hidePlayer(Tools.getInstance(), player);
 					continue;
-					
 				}				
 			}
 			
@@ -77,16 +80,19 @@ public class Vanish {
 				Tools.getInstance().getMessenger().broadcast(new Stringer(Messages.VANISH_NOTIFYSTART)
 						.player(player)
 						.parse(player)
-						.create(), false, p -> Permissions.VANISH_NOTIFY.check(p) && !p.equals(player));
+						.create(), false, p -> Permissions.VANISH_NOTIFY.check(p) 
+						&& !p.equals(player)
+						&& (!special
+								|| Permissions.VANISH_SPECIAL_NOTIFY.check(p)));
 			}
 			
 			Tools.getInstance().getMessenger().sendMessage(Messages.VANISH_START.value(), player);
-			
+			if (special) Tools.getInstance().getMessenger().sendMessage(Messages.VANISH_SPECIAL.value(), player);
 			
 		} else {
 			
 			Tools.getInstance().removeVanishedPlayer(player);
-			Tools.getInstance().getStaffchat().removeListener(player);
+			if (Tools.getInstance().getStaffchat().isListening(player)) Tools.getInstance().getStaffchat().removeListener(player);
 			
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				if (!p.hasPermission("alchemictools.vanish.see")) {

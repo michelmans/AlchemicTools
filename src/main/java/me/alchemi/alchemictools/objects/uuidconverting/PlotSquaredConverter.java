@@ -29,6 +29,7 @@ public class PlotSquaredConverter implements IConverter {
 				
 				for (Plot plot : api.getAllPlots()) {
 					Tools.getInstance().setUuidConverting(true);
+					Tools.getInstance().getMessenger().print("Converting plot " + plot.getId());
 					//owner
 					for (UUID id : convertSet(plot.getOwners(), e)) {
 						plot.setOwner(id);

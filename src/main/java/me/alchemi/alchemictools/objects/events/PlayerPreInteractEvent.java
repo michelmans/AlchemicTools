@@ -12,9 +12,11 @@ public class PlayerPreInteractEvent extends Event {
 	private final ItemStack item;
 	
 	public PlayerPreInteractEvent(Player player, ItemStack hand) {
+		super(true);
 		this.player = player;
 		
 		this.item = hand.clone();
+		
 	}
 	
 	@Override
@@ -39,5 +41,7 @@ public class PlayerPreInteractEvent extends Event {
 	public ItemStack getItem() {
 		return item;
 	}
+	
+	
 
 }

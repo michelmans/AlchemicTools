@@ -97,6 +97,7 @@ public class StaffChat implements Listener{
 		
 		if (Hooks.BUNGEE.asBoolean()) {
 			new BungeeMessage(Channel.STAFFCHAT, "ONLINE")
+			.string(Options.SERVERNAME.asString())
 			.string(sender instanceof Player ? ((Player)sender).getDisplayName() : "Console")
 			.bool(Permissions.STAFFCHAT.check(sender))
 			.msg(message)
@@ -104,16 +105,19 @@ public class StaffChat implements Listener{
 		}
 	}
 	
-	public void send(String sender, boolean staff, String message) {
+	public void send(String server, String sender, boolean staff, String message) {
 		String toSend;
+		
 		if (staff) {
-			toSend = new Stringer(Messages.STAFFCHAT_STAFF)
+			toSend = new Stringer(Messages.STAFFCHAT_STAFFBUNGEE)
 					.player(sender)
+					.server(server)
 					.message(message)
 					.create();
 		} else {
-			toSend = new Stringer(Messages.STAFFCHAT_NONSTAFF)
+			toSend = new Stringer(Messages.STAFFCHAT_NONSTAFFBUNGEE)
 					.player(sender)
+					.server(server)
 					.message(message)
 					.create();
 		}

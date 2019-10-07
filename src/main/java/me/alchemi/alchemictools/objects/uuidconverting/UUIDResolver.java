@@ -139,7 +139,7 @@ public class UUIDResolver implements Listener{
 		new BukkitRunnable() {
 			
 			@Override
-			public void run() {
+			public void run() {				
 				File worldFile = new File(Bukkit.getWorldContainer(), Bukkit.getServer().getWorlds().get(0).getName());
 				File dataFile = new File(worldFile, "playerdata");
 				IConverter.backupDir(dataFile);

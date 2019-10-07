@@ -7,7 +7,8 @@ AlchemicTools:
       Unknown: '&cUnknown command. Use &9/at help &cfor more information.'
    Vanish:
       Start: '&3You are no longer visible to other players.'
-      Stop: '&3You are now visible to other players.'
+      Stop: '&cYou are now visible to other players.'
+      Special: '&3You are hidden from regular staff as well.'
       NotifyStart: '&3%player% is now vanished.'
       NotifyStop: '&3%player% is no longer vanished.'
       PersistentNotification: '&3You''re vanished.'
@@ -18,6 +19,8 @@ AlchemicTools:
    StaffChat:
       NonStaff: '&7[&l&4HelpOP&r&7] %player%&r: %message%'
       Staff: '&7[&6&lStaffChat&r&7] %player%&r: %message%'
+      NonStaffBungee: '&8&o%server% &7[&l&4HelpOP&r&7] %player%&r: %message%'
+      StaffBungee: '&8&o%server% &7[&6&lStaffChat&r&7] %player%&r: %message%'
       Start: '&3You are now participating in the staff chat.'
       Stop: '&cYou are no longer participating in the staff chat.'
    Smite:

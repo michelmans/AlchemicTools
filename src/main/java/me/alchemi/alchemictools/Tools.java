@@ -34,6 +34,7 @@ import me.alchemi.alchemictools.command.tabcomplete.InvseeTabComplete;
 import me.alchemi.alchemictools.command.tabcomplete.RestartTabComplete;
 import me.alchemi.alchemictools.command.tabcomplete.SudoTabComplete;
 import me.alchemi.alchemictools.command.tabcomplete.ToolsTabComplete;
+import me.alchemi.alchemictools.command.tabcomplete.VanishTabComplete;
 import me.alchemi.alchemictools.listener.AutoRefill;
 import me.alchemi.alchemictools.listener.PrePlayerJoin;
 import me.alchemi.alchemictools.listener.staffchat.ChatControl;
@@ -172,6 +173,7 @@ public class Tools extends PluginBase implements Listener {
 		getCommand("reboot").setTabCompleter(new RestartTabComplete());
 		getCommand("sudo").setTabCompleter(new SudoTabComplete());
 		getCommand("tools").setTabCompleter(new ToolsTabComplete());
+		getCommand("vanish").setTabCompleter(new VanishTabComplete());
 	}
 	
 	public void registerEvents() {

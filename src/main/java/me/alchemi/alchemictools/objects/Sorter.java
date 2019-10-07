@@ -61,8 +61,8 @@ public class Sorter {
 		return item.hasItemMeta() 
 				? item.getItemMeta().hasDisplayName() 
 						? item.getItemMeta().getDisplayName() 
-								: MaterialWrapper.getFromItemStack(item).getKey().getKey().toLowerCase() 
-								: MaterialWrapper.getFromItemStack(item).getKey().getKey().toLowerCase();
+								: MaterialWrapper.getWrapper(item).getKey().getKey().toLowerCase() 
+								: MaterialWrapper.getWrapper(item).getKey().getKey().toLowerCase();
 	}
 	
 	public class SortingItem implements Comparable<SortingItem>{
