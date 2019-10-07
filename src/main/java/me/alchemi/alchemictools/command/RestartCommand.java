@@ -5,9 +5,7 @@ import java.util.Arrays;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import me.alchemi.al.Library;
 import me.alchemi.al.objects.base.CommandBase;
@@ -50,11 +48,4 @@ public class RestartCommand extends CommandBase implements Listener {
 		}
 		return true;
 	}
-	
-	@EventHandler
-	public void onPreCommand(PlayerCommandPreprocessEvent e) {
-		if (e.getMessage().startsWith("/restart")) {
-			e.setMessage(e.getMessage().replace("/restart", "/alchemictools:restart"));
-		}
-	}	
 }
