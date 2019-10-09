@@ -49,12 +49,14 @@ public class Vanish {
 			Tools.getInstance().getStaffchat().addListener(player);
 			
 			for (Player p : Bukkit.getOnlinePlayers()) {
-				if (!(p.hasPermission("alchemictools.vanish.see") 
-						|| p.equals(player))
-						&& (special && !p.hasPermission("alchemictools.vanish.seespecial"))) {
+				if (!(Permissions.VANISH_SEE.check(p) 
+						|| p.equals(player))) {
 					p.hidePlayer(Tools.getInstance(), player);
 					continue;
-				}				
+				} else if (special && !Permissions.VANISH_SPECIAL_SEE.check(p)) {
+					p.hidePlayer(Tools.getInstance(), player);
+					continue;
+				}
 			}
 			
 			tasks.put(player.getUniqueId(), Bukkit.getScheduler().scheduleSyncRepeatingTask(Tools.getInstance(), new Runnable() {
