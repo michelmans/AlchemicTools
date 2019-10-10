@@ -1,6 +1,7 @@
 package me.alchemi.alchemictools.command;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -20,6 +21,15 @@ public class StaffChatCommand extends CommandBase {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		
+		if (sender.equals(Bukkit.getConsoleSender())) {
+			String toSend = "";
+			for (String arg : args) {
+				toSend += arg + " ";
+			}
+			staffChat.sendServer(sender, toSend);
+			return true;
+		}
 		
 		if (args.length == 0 && sender.hasPermission("alchemictools.staffchat")) {
 			

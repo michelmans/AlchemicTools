@@ -94,6 +94,26 @@ public class StaffChat implements Listener{
 		if (Tools.chatControlPresent) toSend = ChatControl.checkMessage((Player) sender, toSend);
 		
 		Tools.getInstance().getMessenger().broadcast(toSend, false, player -> Permissions.STAFFCHAT.check(player));
+		Messenger.printStatic(toSend);
+		
+		if (Hooks.BUNGEE.asBoolean()) {
+			new BungeeMessage(Channel.STAFFCHAT, "ONLINE")
+			.string(Options.SERVERNAME.asString())
+			.string(sender instanceof Player ? ((Player)sender).getDisplayName() : "Console")
+			.bool(Permissions.STAFFCHAT.check(sender))
+			.msg(message)
+			.sendAny();
+		}
+	}
+	
+	public void sendServer(CommandSender sender, String message) {
+		String toSend = new Stringer(Messages.STAFFCHAT_STAFF)
+				.player("Console")
+				.message(message)
+				.create();
+		
+		Tools.getInstance().getMessenger().broadcast(toSend, false, player -> Permissions.STAFFCHAT.check(player));
+		Messenger.printStatic(toSend);
 		
 		if (Hooks.BUNGEE.asBoolean()) {
 			new BungeeMessage(Channel.STAFFCHAT, "ONLINE")
@@ -123,6 +143,7 @@ public class StaffChat implements Listener{
 		}
 		
 		Tools.getInstance().getMessenger().broadcast(toSend, false, player -> Permissions.STAFFCHAT.check(player));
+		Messenger.printStatic(toSend);
 				
 	}
 }
