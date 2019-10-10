@@ -18,12 +18,12 @@ public class VanishTabComplete extends TabCompleteBase{
 
 		List<Object> list = new ArrayList<Object>();
 
-		if (!(sender instanceof Player 
-				&& !sender.hasPermission(cmd.getPermission())
-				&& !Permissions.VANISH_SPECIAL.check(sender)))
+		if (sender instanceof Player
+				&& (!Permissions.VANISH.check(sender)
+						|| !Permissions.VANISH_SPECIAL.check(sender)))
 			return Arrays.asList("");
-
-		if (args.length == 1) {
+		
+		if (args.length >= 0) {
 			list.add("special");
 		}
 		

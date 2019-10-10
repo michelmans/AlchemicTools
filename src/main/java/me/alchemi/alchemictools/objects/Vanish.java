@@ -97,10 +97,7 @@ public class Vanish {
 			if (Tools.getInstance().getStaffchat().isListening(player)) Tools.getInstance().getStaffchat().removeListener(player);
 			
 			for (Player p : Bukkit.getOnlinePlayers()) {
-				if (!p.hasPermission("alchemictools.vanish.see")) {
-					p.showPlayer(Tools.getInstance(), player);
-					continue;
-				}				
+				p.showPlayer(Tools.getInstance(), player);			
 			}
 			
 			if (tasks.containsKey(player.getUniqueId())) {

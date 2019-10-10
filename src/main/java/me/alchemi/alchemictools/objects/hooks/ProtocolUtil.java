@@ -32,7 +32,7 @@ public class ProtocolUtil {
         try {
         	
         	for (Player receiver : Bukkit.getOnlinePlayers()) {
-        		if (receiver.hasPermission("alchemictools.vanish.see") && !receiver.equals(player)) ProtocolLibrary.getProtocolManager().sendServerPacket(receiver, packet);
+        		if (!receiver.equals(player)) ProtocolLibrary.getProtocolManager().sendServerPacket(receiver, packet);
         	}
         	
         } catch (InvocationTargetException e) {

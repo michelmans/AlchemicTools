@@ -24,6 +24,7 @@ public class VanishCommand extends CommandBase {
 			if (Permissions.VANISH_SPECIAL.check(sender)) {
 				if (args.length >= 1 
 						&& args[0].equals("special")) Vanish.toggle((Player) sender, false);
+			
 				else Vanish.toggle((Player) sender, true);
 			} else {
 				Vanish.toggle((Player) sender, false);
