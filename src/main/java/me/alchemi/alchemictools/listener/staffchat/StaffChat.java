@@ -65,7 +65,7 @@ public class StaffChat implements Listener{
 		}
 		
 		if (listeners.contains(e.getPlayer()) && !e.getMessage().startsWith(Options.MESSAGE_BYPASSSTAFFCHATCHARACTER.asString())) {
-			send(e.getPlayer(), e.getMessage());
+			send(e.getPlayer(), e.getMessage().substring(Options.MESSAGE_BYPASSSTAFFCHATCHARACTER.asString().length()));
 			e.setMessage("");
 			e.setFormat("");
 			e.setCancelled(true);

@@ -1,11 +1,12 @@
 package me.alchemi.alchemictools.objects.hooks.worldguard;
 
 import com.sk89q.worldguard.WorldGuard;
-import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.flags.StringFlag;
 import com.sk89q.worldguard.protection.flags.registry.FlagConflictException;
 import com.sk89q.worldguard.protection.flags.registry.FlagRegistry;
 import com.sk89q.worldguard.session.SessionManager;
+
+import me.alchemi.al.configurations.Messenger;
 
 public class WorldGuardHook {
 
@@ -22,22 +23,16 @@ public class WorldGuardHook {
 			GREETING_TITLE = welcomeFlag;
 			FAREWELL_TITLE = farewellFlag;
 		} catch (FlagConflictException e) {
-			Flag<?> existingGreet = registry.get("greeting-title");
-			Flag<?> existingFarewell = registry.get("farewell-title");
-			
-	        if (existingGreet instanceof StringFlag) {
-	            GREETING_TITLE = (StringFlag) existingGreet;
-	        }
-	        if (existingFarewell instanceof StringFlag) {
-	        	FAREWELL_TITLE = (StringFlag) existingFarewell;
-	        }
+			Messenger.printStatic("Flags already registered, not using them.", "AlchemicTools");
+		} catch (IllegalStateException e) {
+			Messenger.printStatic("&4" + e.getMessage());
 		}
 	}
 	
 	public static void onEnable() {
 		SessionManager sm = WorldGuard.getInstance().getPlatform().getSessionManager();
-		sm.registerHandler(GreetingHandler.FACTORY, null);
-		sm.registerHandler(FarewellHandler.FACTORY, null);
+		if (GREETING_TITLE != null) sm.registerHandler(GreetingHandler.FACTORY, null);
+		if (FAREWELL_TITLE != null) sm.registerHandler(FarewellHandler.FACTORY, null);
 	}
 	
 }

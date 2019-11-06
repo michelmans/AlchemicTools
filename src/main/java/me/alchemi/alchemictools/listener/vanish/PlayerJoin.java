@@ -21,8 +21,17 @@ public class PlayerJoin implements Listener{
 		PersistentMeta.initializePlayer(e.getPlayer(), Tools.getInstance().getName());
 		
 		for (Player vanished : Tools.getInstance().getVanishedPlayers()) {
-
+			
 			if (e.getPlayer().hasPermission("alchemictools.vanish.see") 
+					&& Vanish.INDICATION.valueOf(Config.Vanish.INDICATION.asString()) == INDICATION.SPECTATOR
+					&& Tools.protocolPresent) ProtocolUtil.sendGameModePacket(vanished, e.getPlayer(), true);
+			else e.getPlayer().hidePlayer(Tools.getInstance(), vanished);
+			
+		}
+
+		for (Player vanished : Tools.getInstance().getVanishedOPPlayers()) {
+
+			if (e.getPlayer().hasPermission("alchemictools.vanish.special.see") 
 					&& Vanish.INDICATION.valueOf(Config.Vanish.INDICATION.asString()) == INDICATION.SPECTATOR
 					&& Tools.protocolPresent) ProtocolUtil.sendGameModePacket(vanished, e.getPlayer(), true);
 			else e.getPlayer().hidePlayer(Tools.getInstance(), vanished);

@@ -5,6 +5,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import me.alchemi.alchemictools.Tools;
+import me.alchemi.alchemictools.objects.Permissions;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 public class PapiExpansion extends PlaceholderExpansion{
@@ -35,13 +36,16 @@ public class PapiExpansion extends PlaceholderExpansion{
 	}
 	
 	@Override
-	public String onPlaceholderRequest(Player p, String id) {
+	public String onPlaceholderRequest(Player player, String id) {
 		
 		if (id.equalsIgnoreCase("playercount")) {
-			return p.hasPermission("alchemictools.vanish.see") ? String.valueOf(Bukkit.getOnlinePlayers().size()) 
-					: String.valueOf(Bukkit.getOnlinePlayers().size() - Tools.getInstance().getVanishedPlayers().size());
+			return player.hasPermission("alchemictools.vanish.see") 
+					? Permissions.VANISH_SPECIAL_SEE.check(player) 
+							? String.valueOf(Bukkit.getOnlinePlayers().size())
+									: String.valueOf(Tools.getInstance().getOnlineOPPlayers())
+									: String.valueOf(Tools.getInstance().getOnlinePlayers());
 		} else if (id.equalsIgnoreCase("vanished")) {
-			return String.valueOf(Tools.getInstance().getVanishedPlayers().contains(p));
+			return String.valueOf(Tools.getInstance().getVanishedPlayers().contains(player));
 		} else if (id.equalsIgnoreCase("vanishedplayers")) {
 			return String.valueOf(Tools.getInstance().getVanishedPlayers().size());
 		}
@@ -53,7 +57,7 @@ public class PapiExpansion extends PlaceholderExpansion{
 	public String onRequest(OfflinePlayer p, String id) {
 		
 		if (id.equalsIgnoreCase("playercount")) {
-			return String.valueOf(Bukkit.getOnlinePlayers().size() - Tools.getInstance().getVanishedPlayers().size());
+			return String.valueOf(Tools.getInstance().getOnlinePlayers());
 		} else if (id.equalsIgnoreCase("vanished")) {
 			return "false";
 		} else if (id.equalsIgnoreCase("vanishedplayers")) {

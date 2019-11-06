@@ -18,7 +18,8 @@ public class ListPing implements Listener {
 		
 		while (iter.hasNext()) {
 			Player next = iter.next();
-			if (Tools.getInstance().getVanishedPlayers().contains(next)) {
+			if (Tools.getInstance().getVanishedPlayers().contains(next)
+					|| Tools.getInstance().getVanishedOPPlayers().contains(next)) {
 				iter.remove();
 			}
 		}

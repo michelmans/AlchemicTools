@@ -42,10 +42,10 @@ public class Vanish {
 		
 	public static void vanish(Player player, boolean vanish) { vanish(player, vanish, true); }
 	
-	public static void vanish(Player player, boolean vanish, boolean special) {
+	public static void vanish(Player player, boolean vanish, boolean op) {
 		if (vanish) {
 			
-			Tools.getInstance().addVanishedPlayers(player);
+			Tools.getInstance().addVanishedPlayers(player, op);
 			Tools.getInstance().getStaffchat().addListener(player);
 			
 			for (Player p : Bukkit.getOnlinePlayers()) {
@@ -53,7 +53,7 @@ public class Vanish {
 						|| p.equals(player))) {
 					p.hidePlayer(Tools.getInstance(), player);
 					continue;
-				} else if (special && !Permissions.VANISH_SPECIAL_SEE.check(p)) {
+				} else if (op && !Permissions.VANISH_SPECIAL_SEE.check(p)) {
 					p.hidePlayer(Tools.getInstance(), player);
 					continue;
 				}
@@ -84,16 +84,17 @@ public class Vanish {
 						.parse(player)
 						.create(), false, p -> Permissions.VANISH_NOTIFY.check(p) 
 						&& !p.equals(player)
-						&& (!special
+						&& (!op
 								|| Permissions.VANISH_SPECIAL_NOTIFY.check(p)));
 			}
 			
 			Tools.getInstance().getMessenger().sendMessage(Messages.VANISH_START.value(), player);
-			if (special) Tools.getInstance().getMessenger().sendMessage(Messages.VANISH_SPECIAL.value(), player);
+			if (op) Tools.getInstance().getMessenger().sendMessage(Messages.VANISH_SPECIAL.value(), player);
 			
 		} else {
 			
 			Tools.getInstance().removeVanishedPlayer(player);
+			
 			if (Tools.getInstance().getStaffchat().isListening(player)) Tools.getInstance().getStaffchat().removeListener(player);
 			
 			for (Player p : Bukkit.getOnlinePlayers()) {

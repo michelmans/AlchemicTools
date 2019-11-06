@@ -10,6 +10,7 @@ import be.maximvdw.placeholderapi.PlaceholderAPI;
 import be.maximvdw.placeholderapi.PlaceholderReplaceEvent;
 import be.maximvdw.placeholderapi.PlaceholderReplacer;
 import me.alchemi.alchemictools.Tools;
+import me.alchemi.alchemictools.objects.Permissions;
 
 public class MVdWExpansion {
 
@@ -18,10 +19,12 @@ public class MVdWExpansion {
 		registerPlaceholder("playercount", (player, oPlayer) -> {
 			
 			if (player == null) {
-				return String.valueOf(Bukkit.getOnlinePlayers().size() - Tools.getInstance().getVanishedPlayers().size());
+				return String.valueOf(Tools.getInstance().getOnlinePlayers());
 			} else {
-				return player.hasPermission("alchemictools.vanish.see") ? String.valueOf(Bukkit.getOnlinePlayers().size()) 
-						: String.valueOf(Bukkit.getOnlinePlayers().size() - Tools.getInstance().getVanishedPlayers().size());
+				return player.hasPermission("alchemictools.vanish.see") ? Permissions.VANISH_SPECIAL_SEE.check(player) ? 
+							String.valueOf(Bukkit.getOnlinePlayers().size())
+							: String.valueOf(Tools.getInstance().getOnlineOPPlayers())
+						: String.valueOf(Tools.getInstance().getOnlinePlayers());
 			}
 			
 		});

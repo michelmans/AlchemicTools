@@ -14,8 +14,9 @@ public class RightClickEntity implements Listener {
 	@EventHandler
 	public void onEvent(PlayerInteractEntityEvent e) {
 		
-		if (Tools.getInstance().getVanishedPlayers().contains(e.getPlayer())
-				&& e.getRightClicked().getType() == EntityType.PLAYER) {
+		if ((Tools.getInstance().getVanishedPlayers().contains(e.getPlayer())
+				|| Tools.getInstance().getVanishedOPPlayers().contains(e.getPlayer()))
+					&& e.getRightClicked().getType() == EntityType.PLAYER) {
 			if (e.getPlayer().hasPermission("alchemictools.invsee")) Invsee.inventory((Player) e.getRightClicked(), e.getPlayer());
 		}
 		

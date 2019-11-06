@@ -60,6 +60,7 @@ public class Tools extends PluginBase implements Listener {
 	private StaffChat staffchat;
 	
 	private Set<Player> vanishedPlayers = new HashSet<Player>();
+	private Set<Player> vanishedOPPlayers = new HashSet<Player>();
 	private Set<String> vanishedNames = new HashSet<String>();
 	
 	public static boolean protocolPresent = false;
@@ -245,22 +246,44 @@ public class Tools extends PluginBase implements Listener {
 	public Set<Player> getVanishedPlayers() {
 		return vanishedPlayers;
 	}
-	public void addVanishedPlayers(Player vanishedPlayer) {
-		this.vanishedPlayers.add(vanishedPlayer);
-		this.vanishedNames.add(vanishedPlayer.getName());
-		this.vanishedNames.add(vanishedPlayer.getPlayerListName());
-		this.vanishedNames.add(vanishedPlayer.getDisplayName());
+	
+	public Set<Player> getVanishedOPPlayers() {
+		return vanishedOPPlayers;
+	}
+	
+	public void addVanishedPlayers(Player vanishedPlayer, boolean special) {
+		if (special) {
+			vanishedOPPlayers.add(vanishedPlayer);
+		} else {
+			vanishedPlayers.add(vanishedPlayer);
+		}
+		vanishedNames.add(vanishedPlayer.getName());
+		vanishedNames.add(vanishedPlayer.getPlayerListName());
+		vanishedNames.add(vanishedPlayer.getDisplayName());
 	}
 	
 	public void removeVanishedPlayer(Player vanishedPlayer) {
-		this.vanishedPlayers.remove(vanishedPlayer);
-		this.vanishedNames.remove(vanishedPlayer.getName());
-		this.vanishedNames.remove(vanishedPlayer.getPlayerListName());
-		this.vanishedNames.remove(vanishedPlayer.getDisplayName());
+		vanishedPlayers.remove(vanishedPlayer);
+		vanishedOPPlayers.remove(vanishedPlayer);
+		vanishedNames.remove(vanishedPlayer.getName());
+		vanishedNames.remove(vanishedPlayer.getPlayerListName());
+		vanishedNames.remove(vanishedPlayer.getDisplayName());
 	}
 	
 	public Set<String> getVanishedNames() {
 		return vanishedNames;
+	}
+	
+	public int getOnlinePlayers() {
+		int online = Bukkit.getOnlinePlayers().size();
+		online -= vanishedPlayers.size() - vanishedOPPlayers.size();
+		return online > 0 ? online : Bukkit.getOnlinePlayers().size();
+	}
+	
+	public int getOnlineOPPlayers() {
+		int online = Bukkit.getOnlinePlayers().size();
+		online -= vanishedOPPlayers.size();
+		return online > 0 ? online : Bukkit.getOnlinePlayers().size();
 	}
 	
 	public Config getConf() {
