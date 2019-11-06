@@ -32,3 +32,6 @@ maven-build.xml
 /.git/
 /.externalToolBuilders/
 /.settings/
+/.gradle/
+/bin/
+/build/
