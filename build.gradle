@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'me.alchemi'
-version = '1.1.8'
+version = '1.1.9'
 description = 'AlchemicTools'
 sourceCompatibility = '1.8'
 
@@ -17,6 +17,7 @@ configurations {
 repositories {
 	mavenCentral()
     mavenLocal()
+    jcenter()
     maven {
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
@@ -54,6 +55,9 @@ dependencies {
     compile 'com.comphenix.protocol:ProtocolLib-API:4.4.0'
     shade 'commons-io:commons-io:2.6'
     shade 'org.apache.commons:commons-lang3:3.9'
+    shade 'com.taskadapter:trello-java-wrapper:0.13'
+    shade 'org.asynchttpclient:async-http-client:2.10.4'
+    shade "com.discord4j:discord4j-core:3.0.10"
     compile 'org.spigotmc:spigot-api:1.14.4-R0.1-SNAPSHOT'
     compile project(':AlchemicLibrary')
     compile project(':AlchemicLibrary-api')
