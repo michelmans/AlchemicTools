@@ -24,7 +24,7 @@ public class Config extends ConfigBase {
 	}
 	
 	public static enum ConfigEnum implements IConfigEnum{
-		CONFIG(new File(Tools.getInstance().getDataFolder(), "config.yml"), 10),
+		CONFIG(new File(Tools.getInstance().getDataFolder(), "config.yml"), 11),
 		MESSAGES(new File(Tools.getInstance().getDataFolder(), "messages.yml"), 9),
 		COMMANDS(new File(Tools.getInstance().getDataFolder(), "commands.yml"), 2);
 
@@ -171,6 +171,43 @@ public class Config extends ConfigBase {
 		}
 	}
 	
+	public static enum Bugs implements IConfig {
+		TRELLO_ENABLED("AlchemicTools.Bugs.Trello.enabled"),
+		TRELLO_KEY("AlchemicTools.Bugs.Trello.key"),
+		TRELLO_TOKEN("AlchemicTools.Bugs.Trello.token"),
+		TRELLO_BOARDNAME("AlchemicTools.Bugs.Trello.boardName"),
+		TRELLO_LISTNAME("AlchemicTools.Bugs.Trello.listName");
+
+		private Object value;
+		public final String key;
+		
+		private Bugs(String key) {
+			this.key = key;
+			get();
+		}
+		
+		@Override
+		public Object value() {
+			return value;
+		}
+
+		@Override
+		public String key() {
+			return key;
+		}
+
+		@Override
+		public SexyConfiguration getConfig() {
+			return ConfigEnum.CONFIG.getConfig();
+		}
+
+		@Override
+		public void get() {
+			value = getConfig().get(key);
+		}
+		
+	}
+	
 	public static enum Messages implements IMessage{
 		COMMANDS_NOPERMISSION("AlchemicTools.Commands.NoPermission"),
 		COMMANDS_RELOAD("AlchemicTools.Commands.Reload"),
@@ -244,6 +281,7 @@ public class Config extends ConfigBase {
 				addAll(Arrays.asList(Options.values()));
 				addAll(Arrays.asList(Hooks.values()));
 				addAll(Arrays.asList(Vanish.values()));
+				addAll(Arrays.asList(Bugs.values()));
 			}
 		};
 	}

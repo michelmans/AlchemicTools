@@ -60,14 +60,30 @@ commands:
       aliases:
       - admintools
       
+   reportbug:
+      usage: /reportbug "<title>" "[description]"
+      description: Report a bug. Remember to use the ".
+      permission: alchemictools.reportbug
+      aliases:
+      - bugs
+      - bug
+      
 permissions:
    alchemictools.smite:
       description: Permission to SMITE HEATHENS.
       default: op
       
+   alchemictools.vanish.*:
+      children:
+        alchemictools.vanish: true
+        alchemictools.vanish.special: true
+        
    alchemictools.vanish:
       description: Permission to vanish.
       default: op
+      children:
+        alchemictools.vanish.see: true
+        alchemictools.vanish.notify: true
       
    alchemictools.vanish.see:
       description: Permission to see vanished players.
@@ -77,6 +93,13 @@ permissions:
       description: Get notified when a player goes into vanish.
       default: op
       
+   alchemictools.vanish.special:
+      description: Vanish specially.
+      default: false
+      children:
+        alchemictools.vanish.special.see: true
+        alchemictools.vanish.special.notify: true
+   
    alchemictools.vanish.special.see:
       description: See a special vanished player.
       default: false
@@ -104,7 +127,23 @@ permissions:
    alchemictools.restartserver:
       description: Permission to restart the server.
       default: op
-      
+   
+   alchemictools.reportbug:
+      description: Permission to report a bug.
+      default: true
+   
+   alchemictools.tools.*:
+      children:
+        alchemictools.tools: true
+        alchemictools.tools.reload: true
+        alchemictools.tools.sort: true
+        alchemictools.tools.autorefill: true
+        alchemictools.tools.migrateuuid: true
+        alchemictools.tools.getuuid: true
+        alchemictools.tools.restore: true
+        alchemictools.tools.notify: true
+        alchemictools.tools.bugs.*: true
+   
    alchemictools.tools:
       description: Permission for base command.
       default: op
@@ -136,3 +175,35 @@ permissions:
    alchemictools.tools.notify:
       description: Permission to get notified.
       default: false
+   
+   alchemictools.tools.bugs.*:
+      children:
+        alchemictools.tools.bugs.active: true
+        alchemictools.tools.bugs.deactivate: true
+        alchemictools.tools.bugs.list: true
+        alchemictools.tools.bugs.trello.*: true
+   
+   alchemictools.tools.bugs.activate:
+      description: Permission to active bug reporter.
+      default: op
+      
+   alchemictools.tools.bugs.deactivate:
+      description: Permission to deactivate bug reporter.
+      default: op
+      
+   alchemictools.tools.bugs.list:
+      description: Permission to list available bug reporters.
+      default: op
+   
+   alchemictools.tools.bugs.trello.*:
+      children:
+        alchemictools.tools.bugs.trello.token: true
+        alchemictools.tools.bugs.trello.token.generate: true
+      
+   alchemictools.tools.bugs.trello.token:
+      description: Permission to input trello token.
+      default: op
+   
+   alchemictools.tools.bugs.trello.token.generate:
+      description: Permission to generate trello token.
+      default: op

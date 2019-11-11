@@ -15,7 +15,7 @@ public class StaffChatCommand extends CommandBase {
 	private StaffChat staffChat;
 	
 	public StaffChatCommand() {
-		super(Tools.getInstance(), Messages.COMMANDS_NOPERMISSION.value());
+		super(Tools.getInstance(), Messages.COMMANDS_NOPERMISSION.value(), Messages.COMMANDS_WRONGFORMAT.value());
 		staffChat = Tools.getInstance().getStaffchat();
 	}
 	

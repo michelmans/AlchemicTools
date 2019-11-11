@@ -15,7 +15,7 @@ import me.alchemi.alchemictools.objects.placeholder.Stringer;
 public class SudoCommand extends CommandBase {
 
 	public SudoCommand() {
-		super(Tools.getInstance(), Messages.COMMANDS_NOPERMISSION.value());
+		super(Tools.getInstance(), Messages.COMMANDS_NOPERMISSION.value(), Messages.COMMANDS_WRONGFORMAT.value());
 	}
 	
 	@Override

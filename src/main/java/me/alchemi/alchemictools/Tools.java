@@ -20,9 +20,11 @@ import org.bukkit.plugin.PluginManager;
 import me.alchemi.al.Library;
 import me.alchemi.al.configurations.Messenger;
 import me.alchemi.al.objects.base.PluginBase;
+import me.alchemi.alchemictools.Config.Bugs;
 import me.alchemi.alchemictools.Config.Hooks;
 import me.alchemi.alchemictools.Config.Options;
 import me.alchemi.alchemictools.bungee.BungeeReceiver;
+import me.alchemi.alchemictools.command.BugCommand;
 import me.alchemi.alchemictools.command.InvseeCommand;
 import me.alchemi.alchemictools.command.RestartCommand;
 import me.alchemi.alchemictools.command.SmiteCommand;
@@ -30,11 +32,11 @@ import me.alchemi.alchemictools.command.StaffChatCommand;
 import me.alchemi.alchemictools.command.SudoCommand;
 import me.alchemi.alchemictools.command.ToolsCommand;
 import me.alchemi.alchemictools.command.VanishCommand;
+import me.alchemi.alchemictools.command.tabcomplete.BugTabComplete;
 import me.alchemi.alchemictools.command.tabcomplete.InvseeTabComplete;
 import me.alchemi.alchemictools.command.tabcomplete.RestartTabComplete;
 import me.alchemi.alchemictools.command.tabcomplete.SudoTabComplete;
 import me.alchemi.alchemictools.command.tabcomplete.ToolsTabComplete;
-import me.alchemi.alchemictools.command.tabcomplete.VanishTabComplete;
 import me.alchemi.alchemictools.listener.AutoRefill;
 import me.alchemi.alchemictools.listener.PrePlayerJoin;
 import me.alchemi.alchemictools.listener.staffchat.ChatControl;
@@ -45,10 +47,14 @@ import me.alchemi.alchemictools.listener.vanish.PlayerJoin;
 import me.alchemi.alchemictools.listener.vanish.PlayerTarget;
 import me.alchemi.alchemictools.listener.vanish.RightClickEntity;
 import me.alchemi.alchemictools.listener.vanish.TabComplete;
+import me.alchemi.alchemictools.objects.Permissions;
 import me.alchemi.alchemictools.objects.hooks.ProtocolUtil;
 import me.alchemi.alchemictools.objects.hooks.worldguard.WorldGuardHook;
 import me.alchemi.alchemictools.objects.placeholder.MVdWExpansion;
 import me.alchemi.alchemictools.objects.placeholder.PapiExpansion;
+import me.alchemi.alchemictools.objects.report.bug.Discord;
+import me.alchemi.alchemictools.objects.report.bug.ReporterManager;
+import me.alchemi.alchemictools.objects.report.bug.Trello;
 import me.alchemi.alchemictools.objects.uuidconverting.GlobalConverter;
 import me.alchemi.alchemictools.objects.uuidconverting.PlotSquaredConverter;
 import me.alchemi.alchemictools.objects.uuidconverting.UUIDResolver;
@@ -125,6 +131,8 @@ public class Tools extends PluginBase implements Listener {
 		
 		registerEvents();
 	
+		activateBugReporting();
+		
 		messenger.print("&4ALERT ALERT\n"
 				+ "&9THE DOCTOR &4IS DETECTED!\n"
 				+ "&9THE DOCTOR &4IS SURROUNDED\n"
@@ -136,7 +144,17 @@ public class Tools extends PluginBase implements Listener {
 	
 	@Override
 	public void onDisable() {
+		
+		for (Player vanished : vanishedPlayers) {
+			Bukkit.getOnlinePlayers().forEach(Player -> Player.showPlayer(instance, vanished));
+		}
+
+		for (Player vanished : vanishedOPPlayers) {
+			Bukkit.getOnlinePlayers().forEach(Player -> Player.showPlayer(instance, vanished));
+		}
+		
 		messenger.print("No more...");
+		ReporterManager.getInstance().deactivateAll();
 	}
 	
 	@EventHandler
@@ -161,7 +179,7 @@ public class Tools extends PluginBase implements Listener {
 		}
 	}
 	
-	public void enableCommands() {
+	private void enableCommands() {
 		getCommand("vanish").setExecutor(new VanishCommand());
 		getCommand("invsee").setExecutor(new InvseeCommand());
 		getCommand("smite").setExecutor(new SmiteCommand());
@@ -169,15 +187,16 @@ public class Tools extends PluginBase implements Listener {
 		getCommand("reboot").setExecutor(new RestartCommand());
 		getCommand("sudo").setExecutor(new SudoCommand());
 		getCommand("tools").setExecutor(new ToolsCommand());
+		getCommand("reportbug").setExecutor(new BugCommand());
 		
 		getCommand("invsee").setTabCompleter(new InvseeTabComplete());
 		getCommand("reboot").setTabCompleter(new RestartTabComplete());
 		getCommand("sudo").setTabCompleter(new SudoTabComplete());
 		getCommand("tools").setTabCompleter(new ToolsTabComplete());
-		getCommand("vanish").setTabCompleter(new VanishTabComplete());
+		getCommand("reportbug").setTabCompleter(new BugTabComplete());
 	}
 	
-	public void registerEvents() {
+	private void registerEvents() {
 		
 		List<Listener> listeners = new ArrayList<Listener>();
 		
@@ -212,7 +231,7 @@ public class Tools extends PluginBase implements Listener {
 		if (getServer().getPluginManager().isPluginEnabled("PlotSquared")) {
 			listeners.add(new PlotSquaredConverter());
 		}
-				
+
 		for (Listener l : listeners) {
 			Bukkit.getPluginManager().registerEvents(l, this);
 			messenger.print("Registered the " + l.getClass().getSimpleName() + " listener.");
@@ -224,8 +243,17 @@ public class Tools extends PluginBase implements Listener {
 			Bukkit.getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new BungeeReceiver());
 		}
 		
+	}
+	
+	private void activateBugReporting(){
 		
+		new ReporterManager();
 		
+		if (Bugs.TRELLO_ENABLED.asBoolean()) {
+			ReporterManager.getInstance().addReporter(new Trello());
+		}
+		
+		ReporterManager.getInstance().addReporter(new Discord());
 	}
 	
 	public static Tools getInstance() {
@@ -238,6 +266,11 @@ public class Tools extends PluginBase implements Listener {
 	
 	public StaffChat getStaffchat() {
 		return staffchat;
+	}
+	
+	public void notify(String message) {
+		messenger.print(message);
+		messenger.broadcast(message, true, Player -> Permissions.TOOLS_NOTIFY.check(Player));
 	}
 
 	/**
@@ -276,7 +309,7 @@ public class Tools extends PluginBase implements Listener {
 	
 	public int getOnlinePlayers() {
 		int online = Bukkit.getOnlinePlayers().size();
-		online -= vanishedPlayers.size() - vanishedOPPlayers.size();
+		online = online - vanishedPlayers.size() - vanishedOPPlayers.size();
 		return online > 0 ? online : Bukkit.getOnlinePlayers().size();
 	}
 	
@@ -300,5 +333,11 @@ public class Tools extends PluginBase implements Listener {
 	
 	public void setUuidConverting(boolean uuidConverting) {
 		this.uuidConverting = uuidConverting;
+	}
+
+	public void reload() {
+		
+		activateBugReporting();
+		
 	}
 }

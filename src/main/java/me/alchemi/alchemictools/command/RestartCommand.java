@@ -12,12 +12,12 @@ import me.alchemi.al.objects.base.CommandBase;
 import me.alchemi.alchemictools.Config.Messages;
 import me.alchemi.alchemictools.Config.Options;
 import me.alchemi.alchemictools.Tools;
-import me.alchemi.alchemictools.objects.Restart;
+import me.alchemi.alchemictools.objects.RestartService;
 
 public class RestartCommand extends CommandBase implements Listener {
 
 	public RestartCommand() {
-		super(Tools.getInstance(), Messages.COMMANDS_NOPERMISSION.value());
+		super(Tools.getInstance(), Messages.COMMANDS_NOPERMISSION.value(), Messages.COMMANDS_WRONGFORMAT.value());
 		Bukkit.getPluginManager().registerEvents(this, Tools.getInstance());
 	}
 	
@@ -26,21 +26,21 @@ public class RestartCommand extends CommandBase implements Listener {
 		if (sender.hasPermission(command.getPermission())) {
 			
 			if (args.length == 0) {
-				new Restart(sender);
+				new RestartService(sender);
 			} else if (args.length == 1 && Arrays.asList("stop", "cancel", "halt", "countermanded").contains(args[0])) {
-				Restart.instance.cancel(sender);
+				RestartService.instance.cancel(sender);
 			} else if (args.length == 1 && Library.testIfNumber(args[0])) {
-				new Restart(sender, Integer.valueOf(args[0]));
+				new RestartService(sender, Integer.valueOf(args[0]));
 			} else if (args.length == 1 && args[0].equals("now")) {
-				new Restart(sender, 0);				
+				new RestartService(sender, 0);				
 			} else if (args.length >= 1 && Library.testIfNumber(args[0])) {
-				new Restart(sender, Integer.valueOf(args[0]), compileArgs(Arrays.copyOfRange(args, 1, args.length)));
+				new RestartService(sender, Integer.valueOf(args[0]), compileArgs(Arrays.copyOfRange(args, 1, args.length)));
 			} else if (args.length >= 1 && args[0].equals("now")) {
-				new Restart(sender, 0, compileArgs(Arrays.copyOfRange(args, 1, args.length)));
+				new RestartService(sender, 0, compileArgs(Arrays.copyOfRange(args, 1, args.length)));
 			} else if (args.length >= 1) {
-				new Restart(sender, Options.RESTART_DEFAULTDELAY.asInt(), compileArgs(args));
+				new RestartService(sender, Options.RESTART_DEFAULTDELAY.asInt(), compileArgs(args));
 			} else {
-				new Restart(sender);
+				new RestartService(sender);
 			}
 			
 		} else {

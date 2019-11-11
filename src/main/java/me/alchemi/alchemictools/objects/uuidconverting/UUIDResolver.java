@@ -31,7 +31,7 @@ import org.json.simple.parser.ParseException;
 
 import me.alchemi.alchemictools.Config.Messages;
 import me.alchemi.alchemictools.Tools;
-import me.alchemi.alchemictools.objects.Restart;
+import me.alchemi.alchemictools.objects.RestartService;
 import me.alchemi.alchemictools.objects.events.OnlineUUIDApplyEvent;
 import me.alchemi.alchemictools.objects.placeholder.Stringer;
 
@@ -171,7 +171,7 @@ public class UUIDResolver implements Listener{
 						config.save(configFile);
 					} catch (IOException e) {}
 					
-					new Restart(Bukkit.getConsoleSender(), 10, "UUID migration.");
+					new RestartService(Bukkit.getConsoleSender(), 10, "UUID migration.");
 					task.cancel();
 				}
 			}

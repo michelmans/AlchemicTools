@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.alchemi.al.objects.meta.PersistentMeta;
 import me.alchemi.alchemictools.Config;
@@ -45,6 +46,14 @@ public class PlayerJoin implements Listener{
 				Vanish.vanish(e.getPlayer(), PersistentMeta.getMeta(e.getPlayer(), VanishMeta.class).asBoolean());
 			}
 		}
+		
+	}
+	
+	@EventHandler
+	public void onLeave(PlayerQuitEvent e) {
+		
+		if (Tools.getInstance().getVanishedPlayers().contains(e.getPlayer())
+				|| Tools.getInstance().getVanishedOPPlayers().contains(e.getPlayer())) Tools.getInstance().removeVanishedPlayer(e.getPlayer());
 		
 	}
 	

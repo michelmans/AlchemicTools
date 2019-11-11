@@ -9,16 +9,16 @@ import me.alchemi.alchemictools.Config.Options;
 import me.alchemi.alchemictools.Tools;
 import me.alchemi.alchemictools.objects.placeholder.Stringer;
 
-public class Restart {
+public class RestartService {
 
 	private int seconds;
 	private CommandSender starter;
 	private int task;
 	private String reason;
 	
-	public static Restart instance;
+	public static RestartService instance;
 	
-	public Restart(CommandSender starter) {
+	public RestartService(CommandSender starter) {
 		if (instance != null) throw new IllegalAccessError("A restart is already scheduled.");
 		
 		this.starter = starter;
@@ -47,7 +47,7 @@ public class Restart {
 		
 	}
 	
-	public Restart(CommandSender starter, int seconds) {
+	public RestartService(CommandSender starter, int seconds) {
 		if (instance != null) throw new IllegalAccessError("A restart is already scheduled.");
 		
 		this.starter = starter;
@@ -73,7 +73,7 @@ public class Restart {
 		instance = this;
 	}
 	
-	public Restart(CommandSender starter, int seconds, String reason) {
+	public RestartService(CommandSender starter, int seconds, String reason) {
 		if (instance != null) throw new IllegalAccessError("A restart is already scheduled.");
 		
 		this.starter = starter;
@@ -167,6 +167,6 @@ public class Restart {
 				.player(stopper.getName())
 				.parse(stopper)
 				.create());
-		Restart.instance = null;
+		RestartService.instance = null;
 	}
 }

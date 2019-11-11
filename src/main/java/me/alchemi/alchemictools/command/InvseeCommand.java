@@ -14,7 +14,7 @@ import me.alchemi.alchemictools.objects.placeholder.Stringer;
 public class InvseeCommand extends CommandBase {
 
 	public InvseeCommand() {
-		super(Tools.getInstance(), Messages.COMMANDS_NOPERMISSION.value());
+		super(Tools.getInstance(), Messages.COMMANDS_NOPERMISSION.value(), Messages.COMMANDS_WRONGFORMAT.value());
 	}
 	
 	@Override

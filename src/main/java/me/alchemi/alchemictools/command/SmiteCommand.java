@@ -14,7 +14,7 @@ import me.alchemi.alchemictools.objects.placeholder.Stringer;
 public class SmiteCommand extends CommandBase {
 
 	public SmiteCommand() {
-		super(Tools.getInstance(), Messages.COMMANDS_NOPERMISSION.value());
+		super(Tools.getInstance(), Messages.COMMANDS_NOPERMISSION.value(), Messages.COMMANDS_WRONGFORMAT.value());
 	}
 
 	@Override

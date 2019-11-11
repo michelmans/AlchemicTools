@@ -8,6 +8,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -48,7 +49,6 @@ public class AutoRefill implements Listener {
 	
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = false)
 	public void itemInteract(PlayerInteractEvent e) {
-		
 		ItemStack fromKey = items.containsKey(e.getPlayer()) ? items.get(e.getPlayer()) : null;
 		ItemStack item = e.getHand() == EquipmentSlot.HAND ? e.getPlayer().getInventory().getItemInMainHand() : e.getPlayer().getInventory().getItemInOffHand();
 		
@@ -65,7 +65,8 @@ public class AutoRefill implements Listener {
 				&& item != null
 				&& item.getMaxStackSize() != 1
 				&& item.getAmount() <= 1
-				&& !e.isCancelled()) {
+				&& e.useInteractedBlock() != Result.DENY
+				&& e.useItemInHand() != Result.DENY) {
 			refill(fromKey, e.getPlayer(), e.getHand());
 		}
 		items.put(e.getPlayer(), null);

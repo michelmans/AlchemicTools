@@ -77,6 +77,7 @@ public class Sorter {
 			uuid = UUID.randomUUID();
 		}
 
+		@SuppressWarnings("unused")
 		@Override
 		public int compareTo(SortingItem o) {
 			int name = displayName.compareTo(o.getDisplayName());

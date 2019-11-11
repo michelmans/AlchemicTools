@@ -19,13 +19,10 @@ public class PlayerTarget implements Listener {
 				(Tools.getInstance().getVanishedPlayers().isEmpty()
 				&& Tools.getInstance().getVanishedOPPlayers().isEmpty())) return;
 		
-		System.out.println(Tools.getInstance().getVanishedPlayers());
-		System.out.println(Tools.getInstance().getVanishedOPPlayers());
-		
 		if (e.getTarget().getType() == EntityType.PLAYER
 				&& (Tools.getInstance().getVanishedPlayers().contains((Player)e.getTarget())
 						|| Tools.getInstance().getVanishedOPPlayers().contains((Player)e.getTarget()))) {
-			e.setCancelled(true);			
+			e.setCancelled(true);
 		}
 	}
 	
@@ -34,9 +31,6 @@ public class PlayerTarget implements Listener {
 		if (e.getTarget() == null ||
 				(Tools.getInstance().getVanishedPlayers().isEmpty()
 						&& Tools.getInstance().getVanishedOPPlayers().isEmpty())) return;
-		
-		System.out.println(Tools.getInstance().getVanishedPlayers());
-		System.out.println(Tools.getInstance().getVanishedOPPlayers());
 		
 		if (e.getTarget().getType() == EntityType.PLAYER
 				&& (Tools.getInstance().getVanishedPlayers().contains((Player)e.getTarget())
