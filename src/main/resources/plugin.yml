@@ -2,7 +2,8 @@ name: AlchemicTools
 main: me.alchemi.alchemictools.Tools
 version: ${project.version}
 author: Alchemi
-description: A plugin which contains some tools helpful for staff (and players).
+description: >-
+  A plugin which contains some tools helpful for staff (and players).
 depend:
 - AlchemicLibrary
 softdepend:

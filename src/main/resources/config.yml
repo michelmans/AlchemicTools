@@ -16,7 +16,8 @@ AlchemicTools:
     # Default: false
     enablePotionEffect: false
 
-    # Wether to notify admins with the alchemictools.vanish.notify permission node get notified when you go into vanish.
+    # Wether to notify admins with the alchemictools.vanish.notify permission
+    # node get notified when you go into vanish.
     # Default: true
     notifyAdmins: true
 
@@ -24,8 +25,10 @@ AlchemicTools:
     # Default: true
     actionBar: true
 
-    # How the player with the alchemictools.vanish.see permission node see the vanish indication in the tab.
-    # This can be SPECTATOR (grey italic tabname), PREFIX (a prefix in your tabname) or NONE (nothing).
+    # How the player with the alchemictools.vanish.see permission node see
+    # the vanish indication in the tab.
+    # This can be SPECTATOR (grey italic tabname), PREFIX (a prefix in your 
+    # tabname) or NONE (nothing).
     # Default: SPECTATOR
     indication: SPECTATOR
 
@@ -37,7 +40,8 @@ AlchemicTools:
     # Default: true
     rightClickInventory: true
 
-    # Wether to display a player's status effects when punched in vanish mode.
+    # Wether to display a player's status effects when punched in vanish
+    # mode.
     # Default: true
     leftClickEffects: true
 
@@ -93,4 +97,3 @@ AlchemicTools:
       
       #The name of the list in the board where you want the bug reports.
       listName: ""
-    

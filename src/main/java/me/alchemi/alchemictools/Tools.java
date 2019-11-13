@@ -102,7 +102,7 @@ public class Tools extends PluginBase implements Listener {
 			conf = new Config();
 			messenger.print("&6Configs enabled!");
 		} catch (IOException | InvalidConfigurationException e) {
-			System.err.println("[PLUGIN]: Could not enable config files.\nDisabling plugin...");
+			System.err.println("[AlchemicTools]: Could not enable config files.\nDisabling plugin...");
 			e.printStackTrace();
 			getServer().getPluginManager().disablePlugin(this);
 		}
