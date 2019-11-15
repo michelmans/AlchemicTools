@@ -128,9 +128,6 @@ public class Vanish {
 			
 		}
 		setTabListVanish(player, vanish);
-		Messenger.printStatic("OP vanish", Tools.getInstance().getVanishedOPPlayers());
-		Messenger.printStatic("Vanish", Tools.getInstance().getVanishedPlayers());
-		Messenger.printStatic("Online", Bukkit.getOnlinePlayers());
 	}
 	
 	public static void setTabListVanish(Player player, boolean vanish) { 
