@@ -26,9 +26,14 @@ public class RestartCommand extends CommandBase implements Listener {
 		if (sender.hasPermission(command.getPermission())) {
 			
 			if (args.length == 0) {
-				new RestartService(sender);
+				try {
+					new RestartService(sender);
+				} catch (NoClassDefFoundError e) {
+					e.printStackTrace();
+					System.err.println(System.getProperty("java.classpath"));
+				}
 			} else if (args.length == 1 && Arrays.asList("stop", "cancel", "halt", "countermanded").contains(args[0])) {
-				RestartService.instance.cancel(sender);
+				RestartService.cancel(sender);
 			} else if (args.length == 1 && Library.testIfNumber(args[0])) {
 				new RestartService(sender, Integer.valueOf(args[0]));
 			} else if (args.length == 1 && args[0].equals("now")) {

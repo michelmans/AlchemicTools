@@ -16,11 +16,17 @@ public class RestartService {
 	private int task;
 	private String reason;
 	
-	public static RestartService instance;
+	private static RestartService instance;
+	
+	static {
+		Messenger.printStatic("Hello there");
+	}
 	
 	public RestartService(CommandSender starter) {
 		if (instance != null) throw new IllegalAccessError("A restart is already scheduled.");
 		
+		instance = this;
+
 		this.starter = starter;
 		this.seconds = Options.RESTART_DEFAULTDELAY.asInt();
 		this.reason = Options.RESTART_DEFAULTMESSAGE.asString();
@@ -41,14 +47,12 @@ public class RestartService {
 				.player(this.starter.getName())
 				.create());
 		
-		
-		
-		instance = this;
-		
 	}
 	
 	public RestartService(CommandSender starter, int seconds) {
 		if (instance != null) throw new IllegalAccessError("A restart is already scheduled.");
+		
+		instance = this;
 		
 		this.starter = starter;
 		this.seconds = seconds;
@@ -70,11 +74,12 @@ public class RestartService {
 				.player(this.starter.getName())
 				.create());
 		
-		instance = this;
 	}
 	
 	public RestartService(CommandSender starter, int seconds, String reason) {
 		if (instance != null) throw new IllegalAccessError("A restart is already scheduled.");
+		
+		instance = this;
 		
 		this.starter = starter;
 		this.seconds = seconds;
@@ -95,8 +100,6 @@ public class RestartService {
 				.reason(this.reason)
 				.player(this.starter.getName())
 				.create());
-		
-		instance = this;
 	}
 	
 	protected void warnPlayers(int timeLeft) {
@@ -156,9 +159,9 @@ public class RestartService {
 		
 	}
 	
-	public void cancel(CommandSender stopper) {
+	public static void cancel(CommandSender stopper) {
 		
-		Bukkit.getScheduler().cancelTask(task);
+		Bukkit.getScheduler().cancelTask(instance.task);
 		Tools.getInstance().getMessenger().broadcast(new Stringer(Messages.RESTART_STOPPED)
 				.player(stopper.getName())
 				.parse(stopper)
@@ -167,6 +170,7 @@ public class RestartService {
 				.player(stopper.getName())
 				.parse(stopper)
 				.create());
-		RestartService.instance = null;
+		instance = null;
+		
 	}
 }
