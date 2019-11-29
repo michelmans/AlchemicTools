@@ -18,7 +18,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-import me.alchemi.al.Library;
 import me.alchemi.al.configurations.Messenger;
 import me.alchemi.al.objects.base.PluginBase;
 import me.alchemi.alchemictools.Config.Bugs;
@@ -178,8 +177,6 @@ public class Tools extends PluginBase implements Listener {
 			}, 5);
 			
 			pm.disablePlugin(plugin);
-		} else if (e.getPlugin().getName().equals("AlchemicTools")) {
-			Library.getMeta().enable(this.getName());
 		}
 	}
 	

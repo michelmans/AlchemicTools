@@ -6,10 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import me.alchemi.al.objects.meta.PersistentMeta;
 import me.alchemi.alchemictools.Config;
 import me.alchemi.alchemictools.Tools;
-import me.alchemi.alchemictools.meta.VanishMeta;
 import me.alchemi.alchemictools.objects.Vanish;
 import me.alchemi.alchemictools.objects.Vanish.INDICATION;
 import me.alchemi.alchemictools.objects.hooks.ProtocolUtil;
@@ -18,8 +16,6 @@ public class PlayerJoin implements Listener{
 
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
-		
-		PersistentMeta.initializePlayer(e.getPlayer(), Tools.getInstance().getName());
 		
 		for (Player vanished : Tools.getInstance().getVanishedPlayers()) {
 			
@@ -37,16 +33,7 @@ public class PlayerJoin implements Listener{
 					&& Tools.protocolPresent) ProtocolUtil.sendGameModePacket(vanished, e.getPlayer(), true);
 			else e.getPlayer().hidePlayer(Tools.getInstance(), vanished);
 			
-		}
-		
-		if (e.getPlayer().hasPermission("alchemictools.vanish")
-				&& PersistentMeta.hasMeta(e.getPlayer(), VanishMeta.class)) {
-			
-			if (PersistentMeta.getMeta(e.getPlayer(), VanishMeta.class).asBoolean()) {
-				Vanish.vanish(e.getPlayer(), PersistentMeta.getMeta(e.getPlayer(), VanishMeta.class).asBoolean());
-			}
-		}
-		
+		}		
 	}
 	
 	@EventHandler
