@@ -3,8 +3,11 @@ package me.alchemi.alchemictools.bungee;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Iterator;
+import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
@@ -12,9 +15,8 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
-import me.alchemi.al.configurations.Messenger;
-import me.alchemi.alchemictools.Config.Options;
 import me.alchemi.alchemictools.Tools;
+import me.alchemi.alchemictools.objects.Permissions;
 
 public class BungeeReceiver implements PluginMessageListener{
 
@@ -26,7 +28,6 @@ public class BungeeReceiver implements PluginMessageListener{
 		ByteArrayDataInput in = ByteStreams.newDataInput(message);
 		
 		String subchannel = in.readUTF();
-		Messenger.printStatic(subchannel);
 		if (subchannel.endsWith("@" + Tools.getInstance().getName())) {
 			switch(BungeeMessage.Channel.valueOf(subchannel.replace("@" + Tools.getInstance().getName(), ""))) {
 			case STAFFCHAT:
@@ -58,19 +59,39 @@ public class BungeeReceiver implements PluginMessageListener{
 			default:
 				break;			
 			}
-		} else if (subchannel.equalsIgnoreCase("PlayerList")) {
-			in.readUTF();
-			if (in.readBoolean()) {
+		} else if (subchannel.equalsIgnoreCase("VanishedPlayerList")) {
 			
-				ByteArrayDataOutput out = ByteStreams.newDataOutput();
-				out.writeUTF("PlayerList");
-				out.writeUTF(Options.SERVERNAME.asString());
+			OfflinePlayer oplayer = Bukkit.getOfflinePlayer(UUID.fromString(in.readUTF()));
+			
+			ByteArrayDataOutput out = ByteStreams.newDataOutput();
+			out.writeUTF("VanishedPlayerList");
+			out.writeUTF(onlinePlayers(oplayer));
+			
+			player.sendPluginMessage(Tools.getInstance(), "BungeeCord", out.toByteArray());
+		}
+		
+	}
+	
+	private String onlinePlayers(OfflinePlayer oPlayer) {
+		Iterator<? extends Player> players = Bukkit.getOnlinePlayers().iterator();
+		
+		String onlinePlayers = "";
+		
+		while (players.hasNext()) {
+			Player player = players.next();
+			if (Tools.getInstance().getVanishedPlayers().contains(player)
+					&& !Tools.getInstance().getPerm().playerHas(Bukkit.getServer().getWorlds().get(0).getName(), 
+							oPlayer, Permissions.VANISH_SEE.toString())) continue;
+			else if (Tools.getInstance().getVanishedOPPlayers().contains(player)
+					&& !Tools.getInstance().getPerm().playerHas(Bukkit.getServer().getWorlds().get(0).getName(), 
+							oPlayer, Permissions.VANISH_SPECIAL_SEE.toString())) continue;
+			else {
 				
-				player.sendPluginMessage(Tools.getInstance(), "BungeeCord", out.toByteArray());
+				onlinePlayers = onlinePlayers.concat(", " + player.getName());
 				
 			}
 		}
-		
+		return onlinePlayers.replaceFirst(", ", "");
 	}
 	
 }

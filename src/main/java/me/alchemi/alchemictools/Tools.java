@@ -16,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 
 import me.alchemi.al.Library;
 import me.alchemi.al.configurations.Messenger;
@@ -58,6 +59,7 @@ import me.alchemi.alchemictools.objects.report.bug.Trello;
 import me.alchemi.alchemictools.objects.uuidconverting.GlobalConverter;
 import me.alchemi.alchemictools.objects.uuidconverting.PlotSquaredConverter;
 import me.alchemi.alchemictools.objects.uuidconverting.UUIDResolver;
+import net.milkbowl.vault.permission.Permission;
 
 public class Tools extends PluginBase implements Listener {
 
@@ -77,6 +79,8 @@ public class Tools extends PluginBase implements Listener {
 	private UUIDResolver idResolver;
 	
 	private Config conf;
+	
+	private Permission perm;
 	
 	@Override
 	public void onLoad() {
@@ -236,6 +240,8 @@ public class Tools extends PluginBase implements Listener {
 			Bukkit.getPluginManager().registerEvents(l, this);
 			messenger.print("Registered the " + l.getClass().getSimpleName() + " listener.");
 		}
+		
+		setupPermissions();
 			
 		
 		if (Hooks.BUNGEE.asBoolean()) {
@@ -244,6 +250,12 @@ public class Tools extends PluginBase implements Listener {
 		}
 		
 	}
+	
+	private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+        perm = rsp.getProvider();
+        return perm != null;
+    }
 	
 	private void activateBugReporting(){
 		
@@ -333,6 +345,10 @@ public class Tools extends PluginBase implements Listener {
 	
 	public void setUuidConverting(boolean uuidConverting) {
 		this.uuidConverting = uuidConverting;
+	}
+	
+	public Permission getPerm() {
+		return perm;
 	}
 
 	public void reload() {

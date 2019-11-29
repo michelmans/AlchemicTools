@@ -10,7 +10,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import me.alchemi.al.configurations.Messenger;
-import me.alchemi.al.objects.meta.PersistentMeta;
 import me.alchemi.alchemictools.Config;
 import me.alchemi.alchemictools.Config.Messages;
 import me.alchemi.alchemictools.Tools;
@@ -32,11 +31,10 @@ public class Vanish {
 		
 		boolean vanish = false;
 		
-		if (PersistentMeta.hasMeta(player, VanishMeta.class)) {
-			vanish = PersistentMeta.getMeta(player, VanishMeta.class).asBoolean();
+		if (player.hasMetadata("vanish")) {
+			vanish = player.getMetadata("vanish").get(0).asBoolean();
 		}
-		
-		PersistentMeta.setMeta(player, new VanishMeta(Tools.getInstance(), !vanish));
+		player.setMetadata("vanish", new VanishMeta(Tools.getInstance(), !vanish));
 		vanish(player, !vanish);
 	}
 		
